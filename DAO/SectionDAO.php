@@ -6,9 +6,11 @@ use Younes\Youdemy\DAO\Interfaces\CRUDInterface;
 
 use PDO;
 use Exception;
+use Younes\Youdemy\DAO\Interfaces\SectionInterface;
+
 use Younes\Youdemy\Entity\Section;
 
-class SectionDAO implements CRUDInterface
+class SectionDAO implements CRUDInterface, SectionInterface
 {
     private $db;
     private $table = "Sections";
@@ -83,6 +85,32 @@ class SectionDAO implements CRUDInterface
             return $stmt->execute();
         } catch (Exception $e) {
             echo "Error deleting Section:" . $e->getMessage();
+            return null;
+        }
+    }
+
+    public function markAsDone($section_id)
+    {
+        $sql = "UPDATE {$this->table} SET isComplete = 'TRUE' WHERE section_id = :section_id";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':section_id', $section_id);
+            return $stmt->execute();
+        } catch (Exception $e) {
+            echo "Error marking section as done :" . $e->getMessage();
+            return null;
+        }
+    }
+
+    public function undone($section_id)
+    {
+        $sql = "UPDATE {$this->table} SET isComplete = 'FALSE' WHERE section_id = :section_id";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':section_id', $section_id);
+            return $stmt->execute();
+        } catch (Exception $e) {
+            echo "Error marking section as done :" . $e->getMessage();
             return null;
         }
     }
