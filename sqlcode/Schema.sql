@@ -82,6 +82,12 @@ CREATE TABLE IF NOT EXISTS Sections(
     FOREIGN KEY (fk_course_id) REFERENCES Courses(course_id)
 );
 
+ALTER TABLE Courses DROP COLUMN  course_content;
+
+ALTER TABLE Courses
+DROP COLUMN course_status,
+ADD COLUMN course_visibility ENUM('active', 'inactive') DEFAULT 'inactive',
+ADD COLUMN course_status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending';
 
 
 

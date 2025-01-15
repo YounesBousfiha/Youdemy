@@ -2,6 +2,7 @@
 
 namespace Younes\Youdemy\Config;
 
+use PDO;
 class DBConnection
 {
     private static $instance = null;
@@ -19,9 +20,9 @@ class DBConnection
         $this->host = $host;
 
         try {
-          $this->conn = new \PDO("mysql:{$this->host};dbname={$this->dbname}", "{$this->user}", "{$this->password}");
-          $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-          $this->conn->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+          $this->conn = new PDO("mysql:{$this->host};dbname={$this->dbname}", "{$this->user}", "{$this->password}");
+          $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }
