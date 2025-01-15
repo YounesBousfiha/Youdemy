@@ -35,7 +35,8 @@ class CategorieDAO implements CRUDInterface
             $stmt->bindParam(':categorie_id', $categorie_id);
             return $stmt->fetchObject(Categorie::class);
         } catch (Exception $e) {
-
+            echo 'Error reading categorie :' .$e->getMessage();
+            return null;
         }
     }
     public function index() {

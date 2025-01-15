@@ -83,6 +83,4 @@ class TagDAO implements CRUDInterface
             return null;
         }
     }
-
-
 }

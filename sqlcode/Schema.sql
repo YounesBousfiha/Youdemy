@@ -89,6 +89,8 @@ DROP COLUMN course_status,
 ADD COLUMN course_visibility ENUM('active', 'inactive') DEFAULT 'inactive',
 ADD COLUMN course_status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending';
 
+ALTER TABLE Persons
+ADD COLUMN user_status ENUM('active', 'inactive') DEFAULT 'active';
 
 
 
