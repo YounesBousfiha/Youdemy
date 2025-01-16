@@ -38,47 +38,23 @@
       </thead>
 
       <tbody>
-
-  <tr>
-        
-          <td   class="  text-sm   border-b   px-5  py-4  text-gray-700  bg-white  "   >2122    </td>
-
-     
-<td   class="  text-sm   px-5  py-4 text-gray-700  border-b bg-white  "   >   Web development   </td>
-            
-
-          
-    <td class="bg-white  px-5 py-4    border-b   text-sm   "   >  <div class="flex   space-x-2"  >
-           <button class="text-yellow-500   font-medium hover:text-yellow-600  transition  rounded    p-1"   > <i class="fas fa-edit"  > </i> </button>
-  
-       
-            <button    class="   text-red-600   hover:text-red-700  transition    rounded   p-1"   > <i  class="fas fa-trash-alt"  ></i></button>
-
-    
-     </div>
-      
-        </td>
-      </tr>
-   
-        <tr >
-
-    <td   class="  text-sm   px-5  py-4 text-gray-700    bg-white border-b  ">   3122  </td>
-     
-   <td   class="  text-sm  px-5 py-4 text-gray-700    bg-white border-b"    >    Mobile App Development    </td>
-
-   
-          <td   class="  px-5 py-4   border-b bg-white  text-sm  "    > <div class="flex  space-x-2">
-         <button class=" text-yellow-500 font-medium    hover:text-yellow-600 rounded transition p-1">   <i  class="fas  fa-edit"  > </i>   </button>
- 
-
-    <button  class="  text-red-600    hover:text-red-700     p-1 transition  rounded  ">  <i  class="fas fa-trash-alt" > </i> </button>
-
-   </div>
-
-
-     </td>
-
+      <?php foreach ($data as $category) : ?>
+  <tr data-id=<?= $category->categorie_id  ?>>
+      <td   class="  text-sm   border-b   px-5  py-4  text-gray-700  bg-white  "   ><?= $category->categorie_id  ?>    </td>
+      <td   class="  text-sm   px-5  py-4 text-gray-700  border-b bg-white  "   > <?= $category->categorie_nom ?>   </td>
+      <td class="bg-white  px-5 py-4    border-b   text-sm   "   >
+          <div class="flex   space-x-2"  >
+              <button    class="text-yellow-500   font-medium hover:text-yellow-600  transition  rounded    p-1"   > <i class="fas fa-edit"  > </i> </button>
+              <form action="/admin/category/delete" method="POST">
+                  <input id="delete" type="hidden" name="category_id" class="   text-red-600   hover:text-red-700  transition    rounded   p-1" value="<?= $category->categorie_id ?>" >
+                  <button type="submit" class="text-red-600 hover:text-red-700 transition rounded p-1">
+                      <i class="fas fa-trash-alt"></i>
+                  </button>
+              </form>
+          </div>
+      </td>
   </tr>
+      <?php endforeach; ?>
 
   
       </tbody>

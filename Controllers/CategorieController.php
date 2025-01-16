@@ -19,15 +19,14 @@ class CategorieController
     }
 
     public function categoryPage() {
+        $categorieDAO = new CategorieDAO($this->db);
+        $data = $categorieDAO->index();
         include_once __DIR__ . '/../View/admin/category-management.php';
     }
 
     public function createCategorie($nom, $image) {
         $categorie = new Categorie(null, $image, $nom);
-        var_dump($categorie->__get('categorie_nom'));
         $categorieDAO = new CategorieDAO($this->db);
-        //var_dump("categorie :", $categorie->__get('categorie_nom'));
-
         try {
             $categorieDAO->create($categorie);
             $this->session->set('Success', 'Your Just add new Categorie');
@@ -35,6 +34,18 @@ class CategorieController
         } catch (Exception $e) {
             $this->session->set('Error', $e->getMessage());
             header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function deleteCategory($id) {
+        $categorieDAO = new CategorieDAO($this->db);
+        try {
+            $categorieDAO->delete($id);
+            $this->session->set('Success', 'category is deleted');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } catch (Exception $e) {
+            $this->session->set('Error', $e->getMessage());
+            //header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
     }
 }

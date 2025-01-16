@@ -66,9 +66,11 @@ class CategorieDAO implements CRUDInterface
         }
     }
     public function delete($categorie_id) {
+        var_dump($categorie_id);
         $sql = "DELETE FROM {$this->table} WHERE categorie_id = :categorie_id";
         try  {
             $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':categorie_id', $categorie_id);
             return $stmt->execute();
         } catch (Exception $e) {
             echo 'Error deleting categorie: ' . $e->getMessage();

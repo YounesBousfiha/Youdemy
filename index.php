@@ -32,7 +32,8 @@ $route->add('GET', '/admin/dashboard', [AdminController::class, 'index'], 'auth'
 
 // admin routes
 $route->add('GET', '/admin/category', [CategorieController::class, 'categoryPage'], 'auth');
-$route->add('POST', '/admin/category', [AdminController::class, 'createcategory'], 'auth');
+$route->add('POST', '/admin/category', [AdminController::class, 'createCategory'], 'auth');
+$route->add('POST', '/admin/category/delete', [AdminController::class, 'deleteCategory'], 'auth');
 
 
 $method = $_SERVER['REQUEST_METHOD'];
