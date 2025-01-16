@@ -75,7 +75,6 @@ class AuthDAO implements AuthInterface
         $this->session->remove('email');
         $this->session->remove('user_id');
         $this->session->remove('fk_role_id');
-        $this->session->unset();
         $this->session->destroy();
     }
 

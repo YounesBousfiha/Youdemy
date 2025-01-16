@@ -5,20 +5,22 @@ use Younes\Youdemy\Controllers\AuthController;
 use Younes\Youdemy\Controllers\TeacherController;
 use Younes\Youdemy\Controllers\EtudiantController;
 use Younes\Youdemy\Controllers\AdminController;
+use Younes\Youdemy\Controllers\HomeController;
 
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 $route = new Router();
 
+// Public Routes
+$route->add('GET', '/', [HomeController::class, 'index']);
+
 // Authentification routes
 $route->add('GET', '/login', [AuthController::class, 'index']);
 $route->add('GET', '/signup', [AuthController::class, 'index']);
-
 $route->add('POST', '/login', [AuthController::class, 'login']);
 $route->add('POST', '/signup', [AuthController::class, 'signup']);
-
-$route->add('POST', '/logout', [AuthController::class, 'logout']);
+$route->add('GET', '/logout', [AuthController::class, 'logout']);
 
 // dashboards routes
 $route->add('GET', '/student/dashboard', [EtudiantController::class, 'index']);

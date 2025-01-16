@@ -97,6 +97,8 @@ class AuthController
 
     public function logout() {
         $this->authDAO->logout();
+        $this->session->set('Success', 'See You Later !');
+        header('Location: /');
     }
 
 }
