@@ -42,8 +42,6 @@ class AuthController
             $this->session->set('Error', $e->getMessage());
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
-        echo $email;
-        echo $password;
         $user = $this->authDAO->login($email, $password);
         if($user) {
             $this->session->set('Authsucces', 'Vous etes bien connectez');

@@ -1,7 +1,8 @@
-<?php include_once __DIR__ . '/common/header.php'; ?>
+<?php include_once __DIR__ . '/common/header.php';
+    // TODO: if the user logged in Redirect to the dashboard
+?>
     <div class="container mx-auto p-6 mt-10">
         <div class="bg-white rounded shadow p-8  max-w-xl mx-auto">
-          
            <div  class="text-center mb-4 ">  <h2 class="text-2xl font-semibold text-gray-800  ">Create An Account</h2>  </div>
             <form  action="" method="post" id="registerForm">
 

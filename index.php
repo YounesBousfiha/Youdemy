@@ -14,8 +14,10 @@ $route = new Router();
 // Authentification routes
 $route->add('GET', '/login', [AuthController::class, 'index']);
 $route->add('GET', '/signup', [AuthController::class, 'index']);
+
 $route->add('POST', '/login', [AuthController::class, 'login']);
 $route->add('POST', '/signup', [AuthController::class, 'signup']);
+
 $route->add('POST', '/logout', [AuthController::class, 'logout']);
 
 // dashboards routes

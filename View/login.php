@@ -1,44 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-     <link rel="stylesheet" href="./assets/css/style.css">
-</head>
-
-<body class="bg-gray-50 font-sans">
-    <!-- Header -->
-  <header class="py-6 bg-white shadow-md">
-    <div class="container mx-auto px-6 flex items-center justify-between">
-      <a href="/" class="text-2xl font-bold text-gray-800">EduVerse</a>
-      <nav>
-           <a href="courses.html" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Courses</a>
-              <a href="#" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">About</a>
-                <a href="#" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Contact</a>
-           <a href="register.php"
-                class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out">Sign
-             Up</a>
-        </nav>
-    </div>
-  </header>
-
+<?php include_once  __DIR__ . '/common/header.php'; ?>
     <div class="container mx-auto p-6 mt-10">
         <div class="bg-white rounded shadow p-8 max-w-xl mx-auto">
              <div  class="text-center mb-4">
                  <h2 class="text-2xl font-semibold text-gray-800  "> Log In  </h2>
               </div>
-                <form action="" method="post">
+                <form action="" method="post" id="loginForm">
 
                
               <!--Email Input -->
                   <div class="mb-4" >
                 <label for="email"  class="text-gray-700 block  mb-2">  Email Address   </label>
                        <input type="email"  id="email" name="email" class="border w-full py-2 rounded  focus:border-purple-600 focus:outline-none" />
-
                  </div>
 
 
@@ -72,22 +44,37 @@
          </div>
 
 </div>
-  
-     <!-- Footer -->
-    <footer class="bg-gray-800 py-8 mt-10">
-       <div class="container mx-auto px-6 text-center">
-         <p class="text-gray-300 text-sm mb-2">
-                &copy; 2023 EduVerse. All Rights Reserved.
-             </p>
-       <div class="mt-2">
-               <a href="#" class="text-gray-400 hover:text-white px-3">Privacy Policy</a>
-             <a href="#" class="text-gray-400 hover:text-white px-3">Terms of Use</a>
-           </div>
-      </div>
-    </footer>
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let hasError = false;
 
-  <script src="./assets/js/index.js"></script>
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
 
-</body>
+        let title = "";
+        let message = "";
 
-</html>
+        if(!email || !emailRegex.test(email)) {
+            hasError = true;
+            title = "Email Error";
+            message = "Empty or Invalid Email Format";
+        }
+
+        if(!password) {
+            hasError = true;
+            title = "Password Error";
+            message = "Password is Empty";
+        }
+
+        if(hasError) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: title,
+                text: message
+            })
+        }
+    });
+</script>
+<?php include_once  __DIR__ . '/common/footer.php'; ?>
