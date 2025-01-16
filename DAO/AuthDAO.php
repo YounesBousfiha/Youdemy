@@ -50,19 +50,20 @@ class AuthDAO implements AuthInterface
     {
         $sql = "INSERT INTO {$this->table} (nom, prenom, email, password, fk_role_id) VALUES(:nom, :prenom, :email, :password, :fk_role_id)";
         if($this->isExist($instance->email)) {
-            echo 'Email is Already Exist';
-            return null;
+            throw new Exception('Email is Already Exist');
         }
         try {
             $stmt = $this->db->prepare($sql);
+            $hashedPassword = password_hash($instance->password, PASSWORD_DEFAULT);
             $stmt->bindParam(':nom', $instance->nom);
             $stmt->bindParam(':prenom', $instance->prenom);
             $stmt->bindParam(':email', $instance->email);
-            $stmt->bindParam(':password', password_hash($instance->password, PASSWORD_DEFAULT));
+            $stmt->bindParam(':password', $hashedPassword);
             $stmt->bindParam(':fk_role_id', $instance->fk_role_id);
             if($stmt->execute()) {
                 return $this->db->lastInsertId();
             }
+            return null;
         } catch (Exception $e) {
             echo "Error in signup : " . $e->getMessage();
             return null;
@@ -74,6 +75,7 @@ class AuthDAO implements AuthInterface
         $this->session->remove('email');
         $this->session->remove('user_id');
         $this->session->remove('fk_role_id');
+        $this->session->unset();
         $this->session->destroy();
     }
 
