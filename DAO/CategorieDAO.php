@@ -54,10 +54,11 @@ class CategorieDAO implements CRUDInterface
         }
     }
     public function update($instanceCategorie) {
-        $sql = "UPDATE {$this->table} SET categorie_nom = :categorie_nom WHERE categorie_id = :categorie_id";
+        $sql = "UPDATE {$this->table} SET categorie_nom = :categorie_nom, categorie_img = :categorie_img WHERE categorie_id = :categorie_id";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':categorie_nom', $instanceCategorie->categorie_nom);
+            $stmt->bindParam(':categorie_img', $instanceCategorie->categorie_img);
             $stmt->bindParam(':categorie_id', $instanceCategorie->categorie_id);
             return $stmt->execute();
         } catch (Exception $e) {

@@ -39,7 +39,7 @@ class Validator
             mkdir($uploadDir, 0777,true);
         }
 
-        $randomFileName = uniqid() . ' ' . $fileType;
+        $randomFileName = uniqid() . '.' . $fileType;
         $uploadPath = $uploadDir . $randomFileName;
 
         if (!move_uploaded_file($fileTmpName, $uploadPath)) {

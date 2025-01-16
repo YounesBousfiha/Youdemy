@@ -45,6 +45,19 @@ class CategorieController
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         } catch (Exception $e) {
             $this->session->set('Error', $e->getMessage());
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function updateCategory($id, $newimage, $newnom) {
+        $newCategorie = new Categorie($id, $newimage, $newnom);
+        $categoryDAO = new CategorieDAO($this->db);
+        var_dump($id, $newnom, $newimage);
+        try {
+            $categoryDAO->update($newCategorie);
+            $this->session->set('Success', 'Category Updated!');
+        } catch(Exception $e) {
+            $this->session->set('Error', $e->getMessage());
             //header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
     }

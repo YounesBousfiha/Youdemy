@@ -2,6 +2,7 @@
 
 namespace Younes\Youdemy\Controllers;
 
+use Younes\Youdemy\Entity\Categorie;
 use Younes\Youdemy\Helpers\Validator;
 use Exception;
 class AdminController
@@ -28,5 +29,14 @@ class AdminController
             echo 'Error while deleting Category:' . $e->getMessage();
             return;
         }
+    }
+
+    public function updateCategory() {
+        $categorie_id = $_POST['category_id'];
+        $categorie_nom = $_POST['nom'];
+        $categorie_img = $_FILES['image'];
+        var_dump($categorie_id);
+        $categorieController = new CategorieController();
+        $categorieController->updateCategory($categorie_id, $categorie_img, $categorie_nom);
     }
 }
