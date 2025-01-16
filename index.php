@@ -15,6 +15,7 @@ $route = new Router();
 
 // Public Routes
 $route->add('GET', '/', [HomeController::class, 'index']);
+$route->add('GET', '/catalogue', [HomeController::class, 'cataloguePage']);
 
 // Authentification routes
 $route->add('GET', '/login', [AuthController::class, 'index']);

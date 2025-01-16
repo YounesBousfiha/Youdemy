@@ -18,12 +18,19 @@
         <div class="container mx-auto px-6 flex items-center justify-between">
             <a href="/" class="text-2xl font-bold text-gray-800">EduVerse</a>
             <nav>
-                <a href="courses.html" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Courses</a>
+                <a href="/catalogue" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Courses</a>
                 <a href="#" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">About</a>
                 <a href="#" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Contact</a>
+                <?php if(isset($_SESSION['email'])) :  ?>
+                    <a href="/logout"
+                       class="bg-red-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out">Logout
+                    </a>
+                <?php else : ?>
                 <a href="/signup"
                     class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out">Sign
-                    Up</a>
+                    Up
+                </a>
+                <?php endif; ?>
             </nav>
         </div>
     </header>

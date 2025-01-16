@@ -12,5 +12,5 @@
 
 
 </body>
-<script src="../assets/js/index.js"></script>
+<script src="/View/assets/js/index.js"></script>
 </html>

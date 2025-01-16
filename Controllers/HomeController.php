@@ -20,4 +20,8 @@ class HomeController
     public function index() {
         include_once __DIR__ . '/../View/index.php';
     }
+
+    public function cataloguePage() {
+        include_once __DIR__ . '/../View/catalogue.php';
+    }
 }

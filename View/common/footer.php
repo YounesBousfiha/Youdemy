@@ -10,7 +10,7 @@
         </div>
        </div>
   </footer>
-
+    <script src="/View/assets/js/index.js"></script>
     <script>
         <?php
         $message = '';
