@@ -6,6 +6,7 @@ use Younes\Youdemy\Controllers\TeacherController;
 use Younes\Youdemy\Controllers\EtudiantController;
 use Younes\Youdemy\Controllers\AdminController;
 use Younes\Youdemy\Controllers\HomeController;
+use Younes\Youdemy\Core\Middleware;
 
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -23,9 +24,9 @@ $route->add('POST', '/signup', [AuthController::class, 'signup']);
 $route->add('GET', '/logout', [AuthController::class, 'logout']);
 
 // dashboards routes
-$route->add('GET', '/student/dashboard', [EtudiantController::class, 'index']);
-$route->add('GET', '/teacher/dashboard', [TeacherController::class, 'index']);
-$route->add('GET', '/admin/dashboard', [AdminController::class, 'index']);
+$route->add('GET', '/student/dashboard', [EtudiantController::class, 'index'], 'auth');
+$route->add('GET', '/teacher/dashboard', [TeacherController::class, 'index'], 'auth');
+$route->add('GET', '/admin/dashboard', [AdminController::class, 'index'], 'auth');
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];

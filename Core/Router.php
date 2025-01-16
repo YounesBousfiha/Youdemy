@@ -5,12 +5,19 @@ namespace Younes\Youdemy\Core;
 class Router
 {
     private $routes = [];
+    private $middleware;
 
-    public function add($method, $uri, $handler) {
+    public function __construct()
+    {
+        $this->middleware = new Middleware();
+    }
+
+    public function add($method, $uri, $handler, $middleware = null) {
         $this->routes[] = [
             'method' => strtoupper($method),
             'path' => $this->formatPath($uri),
-            'handler' => $handler
+            'handler' => $handler,
+            'middleware' => $middleware
         ];
     }
 
@@ -19,6 +26,10 @@ class Router
 
         foreach ($this->routes as $route) {
             if($route['method'] === strtoupper($httpmethod) && $route['path'] === $uri) {
+                if($route['middleware']) {
+                    $middlewareMethpd = $route['middleware'];
+                    $this->middleware->$middlewareMethpd();
+                }
                 $class = $route['handler'][0];
                 $method = $route['handler'][1];
                 $instance = new $class();
