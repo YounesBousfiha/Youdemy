@@ -17,10 +17,13 @@ class CategorieDAO implements CRUDInterface
     }
 
     public function create($instanceCategorie) {
-        $sql = "INSERT INTO {$this->table} (categorie_nom) VALUES (:categorie_nom)";
+        $sql = "INSERT INTO {$this->table} (categorie_nom, categorie_img) VALUES (:categorie_nom, :categorie_img)";
         try {
             $stmt = $this->db->prepare($sql);
+            var_dump($instanceCategorie->categorie_nom);
+            var_dump($instanceCategorie->categorie_img);
             $stmt->bindParam(':categorie_nom', $instanceCategorie->categorie_nom);
+            $stmt->bindParam(':categorie_img', $instanceCategorie->categorie_img);
             return $stmt->execute();
         } catch (Exception $e) {
             echo "Error creating categorie: " . $e->getMessage();
@@ -44,7 +47,7 @@ class CategorieDAO implements CRUDInterface
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_CLASS, Categorie::class);
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
         } catch (Exception $e) {
             echo 'Error fetching categories: ' . $e->getMessage();
             return null;

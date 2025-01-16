@@ -6,6 +6,7 @@ use Younes\Youdemy\Controllers\TeacherController;
 use Younes\Youdemy\Controllers\EtudiantController;
 use Younes\Youdemy\Controllers\AdminController;
 use Younes\Youdemy\Controllers\HomeController;
+use Younes\Youdemy\Controllers\CategorieController;
 use Younes\Youdemy\Core\Middleware;
 
 
@@ -28,6 +29,11 @@ $route->add('GET', '/logout', [AuthController::class, 'logout']);
 $route->add('GET', '/student/dashboard', [EtudiantController::class, 'index'], 'auth');
 $route->add('GET', '/teacher/dashboard', [TeacherController::class, 'index'], 'auth');
 $route->add('GET', '/admin/dashboard', [AdminController::class, 'index'], 'auth');
+
+// admin routes
+$route->add('GET', '/admin/category', [CategorieController::class, 'categoryPage'], 'auth');
+$route->add('POST', '/admin/category', [AdminController::class, 'createcategory'], 'auth');
+
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];

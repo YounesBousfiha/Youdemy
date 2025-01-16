@@ -1,7 +1,6 @@
 <?php include_once __DIR__ . '/common/header.php'; ?>
-<?php var_dump($_SESSION['email']); ?>
 <div class="container mx-auto p-6 mt-10">
-         <h1 class="text-3xl font-bold text-gray-800 text-center mb-8">Welcome Back, Alex!</h1>
+         <h1 class="text-3xl font-bold text-gray-800 text-center mb-8">Welcome Back, <?= $_SESSION['nom'] . '  ' . $_SESSION['prenom'] ?></h1>
           <p class="text-center text-gray-600 mb-10"  > Stay on Top on your courses here at dashboard</p>
     
 

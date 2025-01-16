@@ -1,7 +1,7 @@
 <?php include_once __DIR__ . '/common/header.php'?>
 <div class="container mx-auto p-6 mt-10">
 
-         <h1  class="text-3xl  text-gray-800  font-bold text-center mb-6">Welcome Back Andrew, Let's Rock!</h1>
+         <h1  class="text-3xl  text-gray-800  font-bold text-center mb-6">Welcome <?= $_SESSION['nom'] . '  ' . $_SESSION['prenom'] ?>, Let's Rock!</h1>
             <p  class=" text-gray-600 text-center   mb-8"> Manage Your courses with this beautiful platform  </p>
 
 

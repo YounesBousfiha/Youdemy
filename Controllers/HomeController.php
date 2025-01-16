@@ -4,7 +4,9 @@ namespace Younes\Youdemy\Controllers;
 
 use Younes\Youdemy\Config\DBConnection;
 use Younes\Youdemy\Helpers\Session;
+use Younes\Youdemy\DAO\CategorieDAO;
 
+use Exception;
 class HomeController
 {
 
@@ -22,6 +24,14 @@ class HomeController
     }
 
     public function cataloguePage() {
-        include_once __DIR__ . '/../View/catalogue.php';
+        try {
+            $categoriesDAO = new CategorieDAO($this->db);
+            $categoriesDATA = $categoriesDAO->index();
+            include_once __DIR__ . '/../View/catalogue.php';
+        } catch (Exception $e) {
+            $this->session->set('Error', $e->getMessage());
+            return null;
+        }
+
     }
 }

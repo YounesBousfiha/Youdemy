@@ -24,6 +24,7 @@ class Validator
         $fileName = $file['name'];
         $fileSize = $file['size'];
         $fileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $fileTmpName = $file['tmp_name'];
 
         if(!in_array($fileType, $allowedEXT)) {
             throw new Exception("File type invalid");
@@ -38,8 +39,14 @@ class Validator
             mkdir($uploadDir, 0777,true);
         }
 
+        $randomFileName = uniqid() . ' ' . $fileType;
+        $uploadPath = $uploadDir . $randomFileName;
 
-        return $uploadDir . basename($fileName);
+        if (!move_uploaded_file($fileTmpName, $uploadPath)) {
+            throw new Exception("Failed to move uploaded file");
+        }
+
+        return $uploadPath;
     }
 
     public static function ValidateEmail($email) {
