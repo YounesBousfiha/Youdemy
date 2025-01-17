@@ -11,6 +11,7 @@ use Younes\Youdemy\Controllers\HomeController;
 use Younes\Youdemy\Controllers\CategorieController;
 use Younes\Youdemy\Core\Middleware;
 
+// TODO: FIX the ON CASCADE DELETE BEETWEEN DATABASE TABLES
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -46,11 +47,13 @@ $route->add('POST', 'admin/tag/delete', [TagController::class, 'deleteTag'], 'au
 // Validate Teacher Account routes
 $route->add('GET', '/admin/teachers', [AdminController::class, 'manageTeacher'], 'auth', [1]);
 $route->add('POST', '/admin/teacher/validate', [AdminController::class, 'validateTeacher'], 'auth', [1]);
+$route->add('POST', '/admin/teacher/reject', [AdminController::class, 'rejectTeacher'], 'auth', [1]);
 // User management routes
 $route->add('GET', '/admin/users', [AdminController::class, 'userPage'], 'auth', [1]);
 $route->add('POST', '/admin/user/delete', [AdminController::class, 'deleteUser'], 'auth', [1]);
 $route->add('POST', '/admin/user/suspend', [AdminController::class, 'suspendUser'], 'auth', [1]);
 $route->add('POST', '/admin/user/activate', [AdminController::class, 'ActiveUser'], 'auth', [1]);
+
 
 // comments management routes
 $route->add('GET', '/admin/comments', [CommentController::class, 'commentPage'], 'auth', [1]);

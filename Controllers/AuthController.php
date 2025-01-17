@@ -25,11 +25,15 @@ class AuthController
     }
 
     public function index() {
-        $uri = $_SERVER['REQUEST_URI'];
-        if(str_contains($uri, 'login')) {
-            include_once __DIR__ . '/../View/login.php';
+        if(!$_SESSION['email']) {
+            $uri = $_SERVER['REQUEST_URI'];
+            if(str_contains($uri, 'login')) {
+                include_once __DIR__ . '/../View/login.php';
+            } else {
+                include_once __DIR__ . '/../View/register.php';
+            }
         } else {
-            include_once __DIR__ . '/../View/register.php';
+            header('Location: http://localhost:3000/');
         }
     }
 

@@ -133,7 +133,24 @@ class AdminController
             $this->session->set('Error', 'failed to activate teacher account');
             header('Location:' . $_SERVER['HTTP_REFERER']);
         }
+    }
 
+    public function rejectTeacher() {
+        try {
+            $teacher_id = Validator::ValidateData($_POST['teacher_id']);
+        } catch (Exception $e) {
+            $this->session->set('Error', 'Missing Teacher_id');
+            header('Location:' . $_SERVER['HTTP_REFERER']);
+        }
 
+        $admindao = new AdminDAO($this->db);
+        if($admindao->deleteAccount($teacher_id)) {
+            $this->session->set('Success', 'teacher account rejected');
+            header('Location:' . $_SERVER['HTTP_REFERER']);
+        } else {
+            $this->session->set('Error', 'failed to reject teacher account');
+            var_dump($teacher_id);
+            //header('Location:' . $_SERVER['HTTP_REFERER']);
+        }
     }
 }
