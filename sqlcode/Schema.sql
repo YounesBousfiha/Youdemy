@@ -100,6 +100,12 @@ ADD COLUMN categorie_img VARCHAR(255) NOT NULL;
 CREATE VIEW inactiveAccount AS
 SELECT P.user_id ,P.prenom, P.nom, P.email FROM Persons P WHERE user_status = 'inactive';
 
+CREATE VIEW Users AS
+SELECT P.user_id, P.nom, P.prenom, P.email, R.role_name
+FROM Persons P
+JOIN Roles R ON P.fk_role_id = R.role_id
+WHERE R.role_name NOT LIKE 'Admin'
+
 
 
 

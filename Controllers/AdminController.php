@@ -29,6 +29,31 @@ class AdminController
         include_once __DIR__ . '/../View/admin/validate-teachers.php';
     }
 
+    public function userPage() {
+        $admindao = new AdminDAO($this->db);
+        $allusers = $admindao->displayUsers();
+
+        include_once  __DIR__ . '/../View/admin/user-management.php';
+    }
+
+    public function deleteUser() {
+        try {
+            $user_id = Validator::ValidateData($_POST['user_id']);
+        } catch (Exception $e) {
+            $this->session->set('Error', 'Missing user_id');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+
+        $admindao = new AdminDAO($this->db);
+        if($admindao->deleteAccount($user_id)) {
+            $this->session->set('Success', 'Account Deleted');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } else {
+            $this->session->set('Error', 'Failed to delete account');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+    }
+
 
     public function createCategory() {
         $categorie_nom = $_POST['nom'];

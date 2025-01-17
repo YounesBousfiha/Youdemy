@@ -22,6 +22,13 @@ class AdminDAO
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function displayUsers() {
+        $sql = "SELECT * FROM Users";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
     public function activeTeacherAccount($id) {
         $sql = "UPDATE {$this->table} SET user_status = 'active' WHERE user_id = :user_id";
         try {
