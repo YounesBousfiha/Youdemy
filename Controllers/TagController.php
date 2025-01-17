@@ -60,14 +60,24 @@ class TagController
         }
     }
 
-    public function updateTag($id, $newnom) {
-        $newTag = new Tag($id, $newnom);
+    public function updateTag() {
+        try {
+            $tag_id = $_POST['tag_id'];
+            $tag_nom = $_POST['nom'];
+        } catch (Exception $e) {
+            $this->session->set('Error', $e->getMessage());
+            header('Location:' . $_SERVER['HTTP_REFERER']);
+        }
+
+        $newTag = new Tag($tag_id, $tag_nom);
         $tagDAO = new TagDAO($this->db);
         try {
             $tagDAO->update($newTag);
             $this->session->set('Success', 'Tag Updated!');
+            header('Location:' . $_SERVER['HTTP_REFERER']);
         } catch(Exception $e) {
             $this->session->set('Error', $e->getMessage());
+            header('Location:' . $_SERVER['HTTP_REFERER']);
         }
     }
 

@@ -56,9 +56,10 @@ class CategorieController
         try {
             $categoryDAO->update($newCategorie);
             $this->session->set('Success', 'Category Updated!');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
         } catch(Exception $e) {
             $this->session->set('Error', $e->getMessage());
-            //header('Location: ' . $_SERVER['HTTP_REFERER']);
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
     }
 }
