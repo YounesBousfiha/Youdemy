@@ -98,7 +98,7 @@ ALTER TABLE Categories
 ADD COLUMN categorie_img VARCHAR(255) NOT NULL;
 
 CREATE VIEW inactiveAccount AS
-SELECT P.user_id ,P.prenom, P.nom, P.email FROM Persons P WHERE user_status = 'inactive';
+SELECT P.user_id ,P.prenom, P.nom, P.email, P.fk_role_id FROM Persons P WHERE user_status = 'inactive';
 
 CREATE VIEW Users AS
 SELECT P.user_id, P.nom, P.prenom, P.email, P.user_status, R.role_name

@@ -16,7 +16,7 @@ class AdminDAO
     }
 
     public function manageTeacher() {
-        $sql = "SELECT * FROM inactiveAccount";
+        $sql = "SELECT * FROM inactiveAccount WHERE fk_role_id = 2";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
