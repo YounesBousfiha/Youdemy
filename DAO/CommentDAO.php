@@ -48,11 +48,11 @@ class CommentDAO implements CRUDInterface
         }
     }
     public function index() {
-        $sql = "SELECT * FROM {$this->table}";
+        $sql = "SELECT * FROM CommentToAdmin";
         try {
             $stmt= $this->db->prepare($sql);
             if($stmt->execute()) {
-                return $stmt->fetchAll(PDO::FETCH_CLASS, Comment::class);
+                return $stmt->fetchAll(PDO::FETCH_OBJ);
             }
             return [];
         } catch(Exception $e) {

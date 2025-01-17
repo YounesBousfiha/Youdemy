@@ -28,9 +28,10 @@
                class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Categories</a>
             <a href="/admin/tags"
                class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Tags</a>
+            <a href="/admin/comments"
+               class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Comment Manage</a>
             <a href="statistics.html"
-               class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Statistics</a>
-
+               class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Statistics</a
             <a href="/catalogue" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Catalogue</a>
 
             <a href="#" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">About</a>

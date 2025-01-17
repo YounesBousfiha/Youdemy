@@ -30,9 +30,9 @@ CREATE TABLE IF NOT EXISTS  Courses(
     course_id INT NOT NULL AUTO_INCREMENT,
     course_nom VARCHAR(255) NOT NULL,
     course_desc VARCHAR(255) NOT NULL,
-    course_content VARCHAR(255) NOT NULL,
     course_miniature VARCHAR(255) NOT NULL,
-    course_status ENUM('active', 'inactive') DEFAULT 'inactive',
+    course_visibility ENUM('active', 'inactive') DEFAULT 'inactive',
+    course_status ENUM('approved', 'rejected') DEFAULT 'pending',
     fk_user_id INT NOT NULL,
     fk_categorie_id INT NOT NULL,
     PRIMARY KEY (course_id),
@@ -106,6 +106,11 @@ FROM Persons P
 JOIN Roles R ON P.fk_role_id = R.role_id
 WHERE R.role_name NOT LIKE 'Admin'
 
+CREATE VIEW CommentToAdmin AS
+    SELECT C.comment_id, CO.course_nom, C.comment_content, P.nom, P.prenom
+    FROM Comments C
+    JOIN Persons P ON P.user_id = C.fk_user_id
+    JOIN Courses CO ON C.fk_course_id = CO.course_id
 
 
 

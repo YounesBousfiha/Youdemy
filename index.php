@@ -1,5 +1,6 @@
 <?php
 
+use Younes\Youdemy\Controllers\CommentController;
 use Younes\Youdemy\Controllers\TagController;
 use Younes\Youdemy\Core\Router;
 use Younes\Youdemy\Controllers\AuthController;
@@ -49,7 +50,12 @@ $route->add('POST', '/admin/teacher/validate', [AdminController::class, 'validat
 $route->add('GET', '/admin/users', [AdminController::class, 'userPage'], 'auth', [1]);
 $route->add('POST', '/admin/user/delete', [AdminController::class, 'deleteUser'], 'auth', [1]);
 $route->add('POST', '/admin/user/suspend', [AdminController::class, 'suspendUser'], 'auth', [1]);
-$route->add('POST', '/admin/user/activate', [AdminController::class, 'ActiveUser'], 'auth', [1]); // TODO : Create a activeUser function to activate users account
+$route->add('POST', '/admin/user/activate', [AdminController::class, 'ActiveUser'], 'auth', [1]);
+
+// comments management routes
+$route->add('GET', '/admin/comments', [CommentController::class, 'commentPage'], 'auth', [1]);
+$route->add('POST', '/admin/comment/delete', [CommentController::class, 'deleteComment'], 'auth', [1]);
+
 // Course management routes
 $route->add('GET', '/admin/courses', [AdminController::class, 'coursePage'], 'auth', [1]); // TODO : create coursePage method in AdminController
 $route->add('POST', '/admin/course/delete', [AdminController::class, 'deleteCourse'], 'auth', [1]); // TODO : create deleteCourse method in AdminController
@@ -61,11 +67,6 @@ $route->add('POST', '/admin/course/reject', [AdminController::class, 'rejectCour
 $route->add('GET', '/admin/sections', [AdminController::class, 'sectionPage'], 'auth', [1]); // TODO : create sectionPage method in AdminController
 $route->add('POST', '/admin/section/delete', [AdminController::class, 'deleteSection'], 'auth', [1]); // TODO : create deleteSection method in AdminController
 $route->add('POST', '/admin/section/update', [AdminController::class, 'updateSection'], 'auth', [1]); // TODO : create updateSection method in AdminController
-
-// comments management routes
-$route->add('GET', '/admin/comments', [AdminController::class, 'commentPage'], 'auth', [1]); // TODO : create commentPage method in AdminController
-$route->add('POST', '/admin/comment/delete', [AdminController::class, 'deleteComment'], 'auth', [1]); // TODO : create deleteComment method in AdminController
-
 // admin statistics routes
 $route->add('GET', '/admin/statistics', [AdminController::class, 'statisticsPage'], 'auth', [1]); // TODO : create statisticsPage method in AdminController
 
