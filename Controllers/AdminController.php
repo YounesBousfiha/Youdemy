@@ -54,6 +54,38 @@ class AdminController
         }
     }
 
+    public function suspendUser() {
+        try {
+            $user_id = Validator::ValidateData($_POST['user_id']);
+        } catch (Exception $e) {
+            $this->session->set('Error', 'Missing user_id');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+
+        $admindao = new AdminDAO($this->db);
+        if($admindao->suspendAccount($user_id)) {
+            $this->session->set('Success', 'Account is Suspended');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } else {
+            $this->session->set('Error', 'Failed to suspend Account');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function ActiveUser() {
+        try {
+            $user_id = Validator::ValidateData($_POST['user_id']);
+        } catch (Exception $e) {
+            $this->session->set('Error', 'Missing user_id');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+        $admindao = new AdminDAO($this->db);
+        if($admindao->activeAccount($user_id)) {
+            $this->session->set('Success', 'Account is Acitvated');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+    }
+
 
     public function createCategory() {
         $categorie_nom = $_POST['nom'];

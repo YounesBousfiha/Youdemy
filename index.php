@@ -46,9 +46,10 @@ $route->add('POST', 'admin/tag/delete', [TagController::class, 'deleteTag'], 'au
 $route->add('GET', '/admin/teachers', [AdminController::class, 'manageTeacher'], 'auth', [1]);
 $route->add('POST', '/admin/teacher/validate', [AdminController::class, 'validateTeacher'], 'auth', [1]);
 // User management routes
-$route->add('GET', '/admin/users', [AdminController::class, 'userPage'], 'auth', [1]); //TODO : create userPage method in AdminController
-$route->add('POST', '/admin/user/delete', [AdminController::class, 'deleteUser'], 'auth', [1]); // TODO : create deleteUser method in AdminController
-$route->add('POST', '/admin/user/suspend', [AdminController::class, 'suspendUser'], 'auth', [1]); // TODO : create suspendUser method in AdminController
+$route->add('GET', '/admin/users', [AdminController::class, 'userPage'], 'auth', [1]);
+$route->add('POST', '/admin/user/delete', [AdminController::class, 'deleteUser'], 'auth', [1]);
+$route->add('POST', '/admin/user/suspend', [AdminController::class, 'suspendUser'], 'auth', [1]);
+$route->add('POST', '/admin/user/activate', [AdminController::class, 'ActiveUser'], 'auth', [1]); // TODO : Create a activeUser function to activate users account
 // Course management routes
 $route->add('GET', '/admin/courses', [AdminController::class, 'coursePage'], 'auth', [1]); // TODO : create coursePage method in AdminController
 $route->add('POST', '/admin/course/delete', [AdminController::class, 'deleteCourse'], 'auth', [1]); // TODO : create deleteCourse method in AdminController

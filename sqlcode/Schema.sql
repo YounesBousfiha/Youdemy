@@ -101,7 +101,7 @@ CREATE VIEW inactiveAccount AS
 SELECT P.user_id ,P.prenom, P.nom, P.email FROM Persons P WHERE user_status = 'inactive';
 
 CREATE VIEW Users AS
-SELECT P.user_id, P.nom, P.prenom, P.email, R.role_name
+SELECT P.user_id, P.nom, P.prenom, P.email, P.user_status, R.role_name
 FROM Persons P
 JOIN Roles R ON P.fk_role_id = R.role_id
 WHERE R.role_name NOT LIKE 'Admin'

@@ -30,13 +30,25 @@ class AdminDAO
     }
 
     public function activeTeacherAccount($id) {
-        $sql = "UPDATE {$this->table} SET user_status = 'active' WHERE user_id = :user_id";
+        $sql = "UPDATE {$this->table} SET user_status = 'active' WHERE user_id = :user_id AND fk_role_id = 2";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':user_id', $id);
             return $stmt->execute();
         } catch (Exception $e) {
             echo "Error while activing teacher account :" . $e->getMessage();
+            return null;
+        }
+    }
+
+    public function activeAccount($id) {
+        $sql = "UPDATE {$this->table} SET user_status = 'active' WHERE user_id = :user_id";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':user_id', $id);
+            return $stmt->execute();
+        } catch (Exception $e) {
+            echo "Error while activing User account :" . $e->getMessage();
             return null;
         }
     }
