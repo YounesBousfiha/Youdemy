@@ -2,17 +2,24 @@
 
 namespace Younes\Youdemy\DAO;
 
+use PDO;
+
 use Exception;
 class AdminDAO
 {
     private $db;
     private $table = "Persons";
-    private $CourseDAO;
 
-    public function __construct($CourseDAO, $db)
+    public function __construct($db)
     {
         $this->db = $db;
-        $this->CourseDAO = $CourseDAO;
+    }
+
+    public function manageTeacher() {
+        $sql = "SELECT * FROM inactiveAccount";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function activeTeacherAccount($id) {

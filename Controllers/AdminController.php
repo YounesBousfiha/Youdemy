@@ -2,14 +2,33 @@
 
 namespace Younes\Youdemy\Controllers;
 
+use Younes\Youdemy\Config\DBConnection;
+use Younes\Youdemy\DAO\AdminDAO;
 use Younes\Youdemy\Entity\Categorie;
+use Younes\Youdemy\Helpers\Session;
 use Younes\Youdemy\Helpers\Validator;
 use Exception;
 class AdminController
 {
+    private $db;
+    private $session;
+    public function __construct()
+    {
+        $this->db = DBConnection::getConnection()->conn;
+        $this->session = new Session();
+    }
+
     public function index() {
         require_once __DIR__ . '/../View/admin/dashboard.php';
     }
+
+    public function manageTeacher() {
+        $admindao = new AdminDAO($this->db);
+        $invalidTeacher = $admindao->manageTeacher();
+
+        include_once __DIR__ . '/../View/admin/validate-teachers.php';
+    }
+
 
     public function createCategory() {
         $categorie_nom = $_POST['nom'];
@@ -35,12 +54,29 @@ class AdminController
         $categorie_id = $_POST['category_id'];
         $categorie_nom = $_POST['nom'];
         $categorie_img = $_FILES['image'];
-        var_dump($categorie_id);
+
         $categorieController = new CategorieController();
         $categorieController->updateCategory($categorie_id, $categorie_img, $categorie_nom);
     }
 
-    public function manageTeachers() {
-        include_once __DIR__ . "/../View/admin/validate-teachers.php";
+    public function validateTeacher() {
+        try {
+            $teacher_id = Validator::ValidateData($_POST['teacher_id']);
+        } catch (Exception $e) {
+            $this->session->set('Error', 'teacher_id is not set correctly');
+            header('Location:' . $_SERVER['HTTP_REFERER']);
+        }
+
+        $admindao = new AdminDAO($this->db);
+
+        if($admindao->activeTeacherAccount($teacher_id)) {
+            $this->session->set('Success', 'teacher account is Activated !');
+            header('Location:' . $_SERVER['HTTP_REFERER']);
+        } else {
+            $this->session->set('Error', 'failed to activate teacher account');
+            header('Location:' . $_SERVER['HTTP_REFERER']);
+        }
+
+
     }
 }

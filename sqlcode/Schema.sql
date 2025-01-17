@@ -95,7 +95,10 @@ ADD COLUMN user_status ENUM('active', 'inactive') DEFAULT 'active';
 INSERT INTO Categories (categorie_nom) VALUES ('Web developpment'), ('Data Science'), ('Blockchain developpment');
 
 ALTER TABLE Categories
-ADD COLUMN categorie_img VARCHAR(255) NOT NULL
+ADD COLUMN categorie_img VARCHAR(255) NOT NULL;
+
+CREATE VIEW inactiveAccount AS
+SELECT P.user_id ,P.prenom, P.nom, P.email FROM Persons P WHERE user_status = 'inactive';
 
 
 

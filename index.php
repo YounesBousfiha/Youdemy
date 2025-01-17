@@ -43,9 +43,8 @@ $route->add('POST', '/admin/tag/create',[TagController::class, 'createTag'], 'au
 $route->add('POST', '/admin/tag/update', [TagController::class, 'updateTag'], 'auth', [1]);
 $route->add('POST', 'admin/tag/delete', [TagController::class, 'deleteTag'], 'auth', [1]);
 // Validate Teacher Account routes
-$route->add('GET', '/admin/teachers', [AdminController::class, 'manageTeachers'], 'auth', [1]);
+$route->add('GET', '/admin/teachers', [AdminController::class, 'manageTeacher'], 'auth', [1]);
 $route->add('POST', '/admin/teacher/validate', [AdminController::class, 'validateTeacher'], 'auth', [1]); //TODO: create validateTeacher method in AdminController
-$route->add('POST', '/admin/teacher/reject', [AdminController::class, 'rejectTeacher'], 'auth', [1]); // TODO create rejectTeacher method in AdminController
 // User management routes
 $route->add('GET', '/admin/users', [AdminController::class, 'userPage'], 'auth', [1]); //TODO : create userPage method in AdminController
 $route->add('POST', '/admin/user/delete', [AdminController::class, 'deleteUser'], 'auth', [1]); // TODO : create deleteUser method in AdminController
