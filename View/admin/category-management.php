@@ -8,7 +8,7 @@
         
         
             
-            <form id="categoryForm"  action=""   method="POST" class="  flex flex-col  space-y-3 sm:space-y-0  items-center    sm:flex-row    sm:space-x-3 justify-center " enctype="multipart/form-data" >
+            <form id="categoryForm"  action="/admin/category/create"   method="POST" class="  flex flex-col  space-y-3 sm:space-y-0  items-center    sm:flex-row    sm:space-x-3 justify-center " enctype="multipart/form-data" >
              <div   class="relative sm:flex-1 "  >
                <input type="text" name="nom" id="nom"   class="pl-8  focus:outline-none   py-2  border w-full rounded "   placeholder="New Category"   />
              </div>

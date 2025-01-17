@@ -18,10 +18,9 @@ class TagDAO implements CRUDInterface
     }
 
     public function create($instanceTag) {
-        $sql = "INSERT INTO {$this->table} (tag_id, tag_nom) VALUES (:tag_id, :tag_nom)";
+        $sql = "INSERT INTO {$this->table} (tag_nom) VALUES (:tag_nom)";
         try {
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':tag_id', $instanceTag->tag_id);
             $stmt->bindParam(':tag_nom', $instanceTag->tag_nom);
             return $stmt->execute();
         } catch (Exception $e) {
@@ -51,7 +50,7 @@ class TagDAO implements CRUDInterface
         try {
             $stmt = $this->db->prepare($sql);
             if($stmt->execute()) {
-                return $stmt->fetchAll(PDO::FETCH_CLASS, Tag::class);
+                return $stmt->fetchAll(PDO::FETCH_OBJ);
             }
             return [];
         } catch (Exception $e) {

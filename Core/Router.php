@@ -9,6 +9,7 @@ class Router
 {
     private $routes = [];
     private $middleware;
+    private $csrf;
 
     public function __construct()
     {
@@ -29,6 +30,14 @@ class Router
     public function dispatch($httpmethod, $path) {
         $uri = $this->formatPath($path);
 
+        if($httpmethod === 'POST') {
+            try {
+                $this->csrf->validate($_POST['csrf_token']);
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
+        }
+
         foreach ($this->routes as $route) {
             if($route['method'] === strtoupper($httpmethod) && $route['path'] === $uri) {
                 if($route['middleware']) {
@@ -41,13 +50,6 @@ class Router
                     die("You are not Authorized ! ");
                 }
 
-                if($httpmethod === 'POST') {
-                    try {
-                        $this->csrf->validate($_POST['csrf_token']);
-                    } catch (Exception $e) {
-                        die($e->getMessage());
-                    }
-                }
                 $class = $route['handler'][0];
                 $method = $route['handler'][1];
                 $instance = new $class();

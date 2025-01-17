@@ -11,7 +11,7 @@ class Tag
     private $tag_id;
     private $tag_nom;
 
-    public function __construct($tag_id, $tag_nom) {
+    public function __construct($tag_id = null, $tag_nom) {
         try {
             $this->tag_id = $tag_id ? Validator::ValidateData($tag_id) : null;
             $this->tag_nom = Validator::ValidateData($tag_nom);
