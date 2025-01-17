@@ -21,7 +21,7 @@
 
                          <input type="password" id="password"   name="password"   class="border w-full  py-2  rounded  focus:border-purple-600 focus:outline-none " />
                  </div>
-
+                    <input type="hidden" name="csrf_token" value="">
 
                 <!-- Login button and reset   -->
 

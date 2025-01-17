@@ -16,12 +16,13 @@ class Router
         $this->csrf = new CSRF(new Session());
     }
 
-    public function add($method, $uri, $handler, $middleware = null) {
+    public function add($method, $uri, $handler, $middleware = null, $roles = []) {
         $this->routes[] = [
             'method' => strtoupper($method),
             'path' => $this->formatPath($uri),
             'handler' => $handler,
-            'middleware' => $middleware
+            'middleware' => $middleware,
+            'rolesRequired' => $roles
         ];
     }
 
@@ -33,6 +34,11 @@ class Router
                 if($route['middleware']) {
                     $middlewareMethpd = $route['middleware'];
                     $this->middleware->$middlewareMethpd();
+                }
+
+                if(!empty($route['rolesRequired']) && !in_array($_SESSION['fk_role_id'], $route['rolesRequired'])) {
+                    http_response_code(403);
+                    die("You are not Authorized ! ");
                 }
 
                 if($httpmethod === 'POST') {

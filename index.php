@@ -28,7 +28,7 @@ $route->add('GET', '/logout', [AuthController::class, 'logout']);
 // dashboards routes
 $route->add('GET', '/student/dashboard', [EtudiantController::class, 'index'], 'auth');
 $route->add('GET', '/teacher/dashboard', [TeacherController::class, 'index'], 'auth');
-$route->add('GET', '/admin/dashboard', [AdminController::class, 'index'], 'auth');
+$route->add('GET', '/admin/dashboard', [AdminController::class, 'index'], 'auth', [1]);
 
 // admin routes
 $route->add('GET', '/admin/category', [CategorieController::class, 'categoryPage'], 'auth');
