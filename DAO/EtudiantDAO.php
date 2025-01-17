@@ -2,7 +2,7 @@
 
 namespace Younes\Youdemy\DAO;
 
-class EtudiantDAO implements EtudiantInterface
+class EtudiantDAO
 {
 
 }

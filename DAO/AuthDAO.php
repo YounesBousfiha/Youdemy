@@ -49,7 +49,7 @@ class AuthDAO implements AuthInterface
 
     public function signup($instance)
     {
-        $sql = "INSERT INTO {$this->table} (nom, prenom, email, password, fk_role_id) VALUES(:nom, :prenom, :email, :password, :fk_role_id)";
+        $sql = "INSERT INTO {$this->table} (nom, prenom, email, password, fk_role_id, user_status) VALUES(:nom, :prenom, :email, :password, :fk_role_id, :status)";
         if($this->isExist($instance->email)) {
             throw new Exception('Email is Already Exist');
         }
@@ -61,6 +61,7 @@ class AuthDAO implements AuthInterface
             $stmt->bindParam(':email', $instance->email);
             $stmt->bindParam(':password', $hashedPassword);
             $stmt->bindParam(':fk_role_id', $instance->fk_role_id);
+            $stmt->bindParam(':status', $instance->status);
             if($stmt->execute()) {
                 return $this->db->lastInsertId();
             }

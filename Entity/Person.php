@@ -13,8 +13,9 @@ abstract class Person
     private $email;
     private $password;
     private $fk_role_id;
+    private $status;
 
-    public function __construct($user_id, $nom, $prenom, $email, $password, $fk_role_id)
+    public function __construct($user_id, $nom, $prenom, $email, $password, $fk_role_id, $status = null)
     {
         try {
             $this->user_id = $user_id ? Validator::ValidateData($user_id) : null;
@@ -23,6 +24,7 @@ abstract class Person
             $this->email = Validator::ValidateEmail($email);
             $this->password = Validator::ValidateData($password);
             $this->fk_role_id = Validator::ValidateData($fk_role_id);
+            $this->status = $status;
         } catch (Exception $e) {
             echo "User Error: " . $e->getMessage();
         }

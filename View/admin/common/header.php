@@ -17,7 +17,7 @@
     <div class="container mx-auto px-6 flex items-center justify-between">
         <a href="/" class="text-2xl font-bold text-gray-800">EduVerse</a>
         <nav>
-            <a href="validate-teachers.html"
+            <a href="/admin/teachers"
                class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Validate
                 Teachers</a>
             <a href="user-management.html"

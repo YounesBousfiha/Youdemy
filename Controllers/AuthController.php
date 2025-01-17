@@ -43,7 +43,7 @@ class AuthController
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
         $user = $this->authDAO->login($email, $password);
-        if($user) {
+        if($user && $user['user_status'] !== 'inactive') {
             $this->session->set('Authsucces', 'Vous etes bien connectez');
             if($user['fk_role_id'] === 1) {
                 header('Location:  /admin/dashboard' );
@@ -53,7 +53,7 @@ class AuthController
                 header('Location:  /student/dashboard' );
             }
         } else {
-            $this->session->set('Error', 'Votre email or password est incorrect');
+            $this->session->set('Error', 'Votre email or password est incorrect or Account not activated');
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
     }
@@ -79,9 +79,9 @@ class AuthController
         }
 
         if($role === '3') {
-            $instance = new  Student(null, $nom, $prenom, $email, $password, $role);
+            $instance = new  Student(null, $nom, $prenom, $email, $password, $role, 'active');
         } else {
-            $instance = new Teacher(null, $nom, $prenom, $email, $password, $role);
+            $instance = new Teacher(null, $nom, $prenom, $email, $password, $role, 'inactive');
         }
         try {
             if($this->authDAO->signup($instance)) {

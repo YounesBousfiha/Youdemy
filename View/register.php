@@ -31,6 +31,7 @@
                     <label for="password2"   class="text-gray-700 block mb-2">Password Confirmation </label>
                     <input type="password"   id="password2" name="password2"   class="border w-full py-2 rounded  focus:border-purple-600  focus:outline-none"/>
                 </div>
+                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                 
                
               <div class="mb-4">

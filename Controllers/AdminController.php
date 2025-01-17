@@ -39,4 +39,8 @@ class AdminController
         $categorieController = new CategorieController();
         $categorieController->updateCategory($categorie_id, $categorie_img, $categorie_nom);
     }
+
+    public function manageTeachers() {
+        include_once __DIR__ . "/../View/admin/validate-teachers.php";
+    }
 }
