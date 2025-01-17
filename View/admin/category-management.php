@@ -15,6 +15,7 @@
                 <div   class="relative sm:flex-1 "  >
                     <input type="file" name="image" id="image"   class="pl-8  focus:outline-none   py-2  border w-full rounded "   placeholder=Image   />
                 </div>
+                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
    
              <button type="submit"  class="py-2   text-white    font-medium  px-3    rounded     bg-purple-600  hover:bg-purple-700  transition "  > Create Category</button>
        </form>
@@ -52,6 +53,7 @@
                       <div class="flex justify-center">
                           <img src="../<?= $category->categorie_img ?>" alt="embedded-image" height="450" width="450">                      </div>
                       <input type="hidden" name="category_id" value="<?=$category->categorie_id; ?>">
+                      <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                       <div class="mb-4">
                           <label for="nom" class="block text-gray-700 text-sm font-bold mb-2">Category Name:</label>
                           <input type="text" name="nom" id="nom" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Category Name">
@@ -76,6 +78,7 @@
               </button>
               <form action="/admin/category/delete" method="POST">
                   <input id="delete" type="hidden" name="category_id" class="   text-red-600   hover:text-red-700  transition    rounded   p-1" value="<?= $category->categorie_id ?>" >
+                  <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                   <button type="submit" class="text-red-600 hover:text-red-700 transition rounded p-1">
                       <i class="fas fa-trash-alt"></i>
                   </button>

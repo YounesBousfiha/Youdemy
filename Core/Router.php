@@ -2,6 +2,9 @@
 
 namespace Younes\Youdemy\Core;
 
+use Younes\Youdemy\Helpers\CSRF;
+use Younes\Youdemy\Helpers\Session;
+use Exception;
 class Router
 {
     private $routes = [];
@@ -10,6 +13,7 @@ class Router
     public function __construct()
     {
         $this->middleware = new Middleware();
+        $this->csrf = new CSRF(new Session());
     }
 
     public function add($method, $uri, $handler, $middleware = null) {
@@ -29,6 +33,14 @@ class Router
                 if($route['middleware']) {
                     $middlewareMethpd = $route['middleware'];
                     $this->middleware->$middlewareMethpd();
+                }
+
+                if($httpmethod === 'POST') {
+                    try {
+                        $this->csrf->validate($_POST['csrf_token']);
+                    } catch (Exception $e) {
+                        die($e->getMessage());
+                    }
                 }
                 $class = $route['handler'][0];
                 $method = $route['handler'][1];
