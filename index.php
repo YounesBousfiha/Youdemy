@@ -2,6 +2,7 @@
 
 use Younes\Youdemy\Controllers\CommentController;
 use Younes\Youdemy\Controllers\CourseController;
+use Younes\Youdemy\Controllers\EnrollmentController;
 use Younes\Youdemy\Controllers\TagController;
 use Younes\Youdemy\Core\Router;
 use Younes\Youdemy\Controllers\AuthController;
@@ -73,11 +74,12 @@ $route->add('GET', '/admin/statistics', [AdminController::class, 'statisticsPage
 /* TEACHER ROUTES */
 // course management routes
 $route->add('GET', '/teacher/courses', [CourseController::class, 'coursePage'], 'auth', [1, 2]);
+$route->add('GET', '/teacher/courses/enrollments/{id}', [EnrollmentController::class, 'TeacherCourseManager'], 'auth', [1, 2]);
 $route->add('GET', '/teacher/course/test', [CourseController::class, 'courseTest'], 'auth', [1, 2]);
 $route->add('GET', '/teacher/courses/creation', [CourseController::class, 'createCoursePage'], 'auth', [1, 2]);
 $route->add('POST', '/teacher/course/create', [CourseController::class, 'createCourse'], 'auth', [1, 2]);
 $route->add('POST', '/teacher/course/update', [CourseController::class, 'updateCourse'], 'auth', [1, 2]); // TODO : create updateCourse method in TeacherController
-$route->add('POST', '/teacher/course/delete', [CourseController::class, 'deleteCourse'], 'auth', [1, 2]); // TODO : create deleteCourse method in TeacherController
+$route->add('POST', '/teacher/course/delete', [CourseController::class, 'deleteCourse'], 'auth', [1, 2]);
 
 /* STUDENT ROUTES */
 

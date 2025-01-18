@@ -128,5 +128,30 @@ ALTER TABLE Comments
     DROP FOREIGN KEY fk_user_id,
     ADD CONSTRAINT fk_user_id FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id) ON DELETE CASCADE;
 
+CREATE VIEW TeacherCourseView AS
+SELECT C.course_id,
+	C.course_nom,
+	Ca.categorie_nom,
+    U.user_id,
+	(SELECT COUNT(*)
+     FROM Enrollments  E
+     WHERE E.fk_course_id = C.course_id) AS Students_Enrolled
+FROM Courses C
+JOIN Categories Ca ON C.fk_categorie_id = Ca.categorie_id
+JOIN Users U ON U.user_id = C.fk_user_id
+ORDER BY C.course_id ASC
+
+CREATE VIEW EnrolledStudents AS
+SELECT
+	C.course_id as course_id,
+    U.nom,
+    U.prenom,
+    U.email,
+    C.course_nom,
+    E.enrollment_status,
+    C.fk_user_id AS teacher_id
+FROM Enrollments E
+JOIN Courses C ON E.fk_course_id = C.course_id
+JOIN Users U ON E.fk_user_id = U.user_id;
 
 
