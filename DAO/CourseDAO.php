@@ -64,10 +64,11 @@ class CourseDAO implements CRUDInterface, CourseInterface
             return null;
         }
     }
-    public function index() {
-        $sql = "SELECT * FROM {$this->table}";
+    public function index($id) {
+        $sql = "SELECT * FROM TeacherCourseView WHERE user_id = :user_id";
         try {
             $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':user_id', $id);
             if($stmt->execute()) {
                 return $stmt->fetchAll(PDO::FETCH_OBJ);
             }
