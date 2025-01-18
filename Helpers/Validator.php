@@ -18,6 +18,11 @@ class Validator
     }
 
     public static function ValidateImage($file) {
+
+        if(is_string($file)) {
+            return $file;
+        }
+
         $allowedEXT = ['png', 'jpg', 'webp'];
         $allowedSize = 2 * 1024 * 1024;
 
