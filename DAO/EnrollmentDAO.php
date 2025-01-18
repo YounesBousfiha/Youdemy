@@ -3,6 +3,8 @@
 namespace Younes\Youdemy\DAO;
 
 use Exception;
+use PDO;
+
 class EnrollmentDAO
 {
     private $db;
@@ -32,7 +34,22 @@ class EnrollmentDAO
             $stmt->bindParam(':enrollment_id', $enrollment_id);
             return $stmt->execute();
         } catch (Exception $e) {
-            echo "Error on canceling enrollmenet " . $e->getMessage();
+            echo "Error on canceling enrollment " . $e->getMessage();
+            return null;
+        }
+    }
+
+    public function studentEnrolledByTeacher($course_id) {
+        $sql = "SELECT * FROM EnrolledStudents WHERE teacher_id = :teacher_id AND course_id = :course_id";
+        $teacher_id = $_SESSION['user_id'];
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':teacher_id', $teacher_id);
+            $stmt->bindParam(':course_id', $course_id);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            echo "Error fetching Student enrolled : " . $e->getMessage();
             return null;
         }
     }
