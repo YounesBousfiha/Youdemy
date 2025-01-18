@@ -18,7 +18,7 @@ class Course
     private $fk_user_id;
     private $fk_categorie_id;
 
-    public function __construct($course_id, $course_nom,$course_desc , $course_miniature = null, $course_visibility, $course_status, $course_type, $course_content, $fk_user_id, $fk_categorie_id) {
+    public function __construct($course_id, $course_nom,$course_desc , $course_miniature, $course_visibility, $course_status, $course_type, $course_content, $fk_user_id, $fk_categorie_id) {
         try {
             $this->course_id = $course_id ? Validator::ValidateData($course_id) : null;
             $this->course_nom = Validator::ValidateData($course_nom);
