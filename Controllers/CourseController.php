@@ -37,15 +37,39 @@ class CourseController
         $tags = $tagsDao->index();
         require_once __DIR__ . '/../View/teacher/course-create.php';
     }
-    public function createCourse() {
+    public function createCourse()
+    {
         try {
-            $courseInstance = new Course(null, $_POST['title'], $_POST['description'], $_POST['miniature'], $_POST['visibility'], $_POST['status'], $_POST['type'], $_POST['content'], $_POST['user_id'], $_POST['category_id']);
-            $this->courseDAO->create($courseInstance);
-            $this->session->set('Success', 'Course Created!');
+            $courseInstance = new Course(
+                null,
+                $_POST['title'],
+                $_POST['description'],
+                $_FILES['image'],
+                'inactive',
+                'pending',
+                $_POST['type'],
+                $_POST['course_content'],
+                $_SESSION['user_id'],
+                $_POST['category_id']
+            );
+            // TODO : Handle tags many to many relationship
+            var_dump($courseInstance->course_id);
+            var_dump($courseInstance->course_nom);
+            var_dump($courseInstance->course_desc);
+            var_dump($courseInstance->course_miniature);
+            var_dump($courseInstance->course_visibility);
+            var_dump($courseInstance->course_status);
+            var_dump($courseInstance->course_type);
+            var_dump($courseInstance->course_content);
+            var_dump($courseInstance->fk_user_id);
+            var_dump($courseInstance->fk_categorie_id);
+
+            //$this->courseDAO->create($courseInstance);
+            //$this->session->set('Success', 'Course Created!');
         } catch (Exception $e) {
             $this->session->set('Error', $e->getMessage());
         } finally {
-            header('Location:' . $_SERVER['HTTP_REFERER']);
+            //header('Location:' . $_SERVER['HTTP_REFERER']);
         }
     }
 
