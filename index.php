@@ -73,8 +73,9 @@ $route->add('GET', '/admin/statistics', [AdminController::class, 'statisticsPage
 /* TEACHER ROUTES */
 // course management routes
 $route->add('GET', '/teacher/courses', [CourseController::class, 'coursePage'], 'auth', [1, 2]);
+$route->add('GET', '/teacher/course/test', [CourseController::class, 'courseTest'], 'auth', [1, 2]);
 $route->add('GET', '/teacher/courses/creation', [CourseController::class, 'createCoursePage'], 'auth', [1, 2]);
-$route->add('POST', '/teacher/course/create', [CourseController::class, 'createCourse'], 'auth', [1, 2]); // TODO : create createCourse method in TeacherController
+$route->add('POST', '/teacher/course/create', [CourseController::class, 'createCourse'], 'auth', [1, 2]);
 $route->add('POST', '/teacher/course/update', [CourseController::class, 'updateCourse'], 'auth', [1, 2]); // TODO : create updateCourse method in TeacherController
 $route->add('POST', '/teacher/course/delete', [CourseController::class, 'deleteCourse'], 'auth', [1, 2]); // TODO : create deleteCourse method in TeacherController
 
@@ -96,10 +97,6 @@ $route->add('POST', '/student/comment/update', [EtudiantController::class, 'upda
 $route->add('GET', '/student/statistics', [EtudiantController::class, 'statisticsPageStudent'], 'auth', [1, 3]); // TODO : create statisticsPage method in EtudiantController
 $route->add('GET', '/teacher/statistics', [TeacherController::class, 'statisticsPageTeacher'], 'auth', [1, 2]); // TODO : create statisticsPage method in EtudiantController
 $route->add('GET', '/admin/statistics', [AdminController::class, 'statisticsPageAdmin'], 'auth', [1]); // TODO : create statisticsPage method in EtudiantController
-
-
-
-
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
