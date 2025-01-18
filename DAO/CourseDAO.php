@@ -20,7 +20,7 @@ class CourseDAO implements CRUDInterface, CourseInterface
     }
 
     public function create($instanceCourse) {
-        $sql = "INSERT INTO {$this->table} (course_nom, course_desc, course_miniature, course_status, course_type, course_content, fk_user_id, fk_categorie_id) VALUES (:course_nom, :course_desc, :course_miniature, :course_status, :course_type, :course_content :fk_user_id, :fk_categorie_id)";
+        $sql = "INSERT INTO {$this->table} (course_nom, course_desc, course_miniature, course_status, course_type, course_content, fk_user_id, fk_categorie_id) VALUES (:course_nom, :course_desc, :course_miniature, :course_status, :course_type, :course_content, :fk_user_id, :fk_categorie_id)";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':course_nom', $instanceCourse->course_nom);
@@ -28,7 +28,7 @@ class CourseDAO implements CRUDInterface, CourseInterface
             $stmt->bindParam(':course_miniature', $instanceCourse->course_miniature);
             $stmt->bindParam(':course_status', $instanceCourse->course_status);
             $stmt->bindParam(':course_type', $instanceCourse->course_type);
-            $stmt->bindParam(':course_content', $instanceCourse->course_content);
+            $stmt->bindParam(':course_content',$this->db->quote($instanceCourse->course_content));
             $stmt->bindParam(':fk_user_id', $instanceCourse->fk_user_id);
             $stmt->bindParam(':fk_categorie_id', $instanceCourse->fk_categorie_id);
             return $stmt->execute();
@@ -43,9 +43,24 @@ class CourseDAO implements CRUDInterface, CourseInterface
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':course_id', $course_id);
             $stmt->execute();
-            return $stmt->fetchObject(Course::class);
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($data) {
+                return new Course(
+                    $data['course_id'],
+                    $data['course_nom'],
+                    $data['course_desc'],
+                    $data['course_miniature'],
+                    $data['course_visibility'],
+                    $data['course_status'],
+                    $data['course_type'],
+                    $data['course_content'],
+                    $data['fk_user_id'],
+                    $data['fk_categorie_id'],
+                );
+            }
+            return null;
         } catch (Exception $e) {
-            echo "Error fetching course:" . $e->getMessage();
+            echo "Error fetching course: " . $e->getMessage();
             return null;
         }
     }
