@@ -9,7 +9,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.js"></script>
 </head>
 
 <body class="bg-gray-50 font-sans">
@@ -19,9 +22,9 @@
     <div class="container mx-auto px-6 flex items-center justify-between">
         <a href="/" class="text-2xl font-bold text-gray-800">EduVerse</a>
         <nav>
-            <a href="course-create.html" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Create Courses</a>
-            <a href="course-management.html" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Manage Course</a>
-            <a href="statistics.html" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Statistics</a>
+            <a href="/teacher/courses/creation" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Create Courses</a>
+            <a href="/teacher/courses" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Manage Course</a>
+            <a href="/teacher/statistics" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Statistics</a>
             <a href="/catalogue" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Catalogues</a>
             <a href="#" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">About</a>
             <a href="#" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Contact</a>

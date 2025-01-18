@@ -20,11 +20,17 @@ class CourseDAO implements CRUDInterface, CourseInterface
     }
 
     public function create($instanceCourse) {
-        // TODO: update this Later to Procedure ( Where I can Insert Tags in Many to Many table)
-        $sql = "INSERT INTO {$this->table} (course_nom, course_desc, course_miniature, course_status, fk_user_id, fk_categorie_id) VALUES (:course_nom, :course_desc, :course_miniature, :course_status, :fk_user_id, :fk_categorie_id)";
+        $sql = "INSERT INTO {$this->table} (course_nom, course_desc, course_miniature, course_status, course_type, course_content, fk_user_id, fk_categorie_id) VALUES (:course_nom, :course_desc, :course_miniature, :course_status, :course_type, :course_content :fk_user_id, :fk_categorie_id)";
         try {
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam();
+            $stmt->bindParam(':course_nom', $instanceCourse->course_nom);
+            $stmt->bindParam(':course_desc', $instanceCourse->course_desc);
+            $stmt->bindParam(':course_miniature', $instanceCourse->course_miniature);
+            $stmt->bindParam(':course_status', $instanceCourse->course_status);
+            $stmt->bindParam(':course_type', $instanceCourse->course_type);
+            $stmt->bindParam(':course_content', $instanceCourse->course_content);
+            $stmt->bindParam(':fk_user_id', $instanceCourse->fk_user_id);
+            $stmt->bindParam(':fk_categorie_id', $instanceCourse->fk_categorie_id);
             return $stmt->execute();
         } catch (Exception $e) {
             echo "Error creating course: " . $e->getMessage();
@@ -48,7 +54,7 @@ class CourseDAO implements CRUDInterface, CourseInterface
         try {
             $stmt = $this->db->prepare($sql);
             if($stmt->execute()) {
-                return $stmt->fetchAll(PDO::FETCH_CLASS, Course::class);
+                return $stmt->fetchAll(PDO::FETCH_OBJ);
             }
             return [];
         } catch(Exception $e) {
@@ -58,11 +64,12 @@ class CourseDAO implements CRUDInterface, CourseInterface
     }
 
     public function update($instanceCourse) {
-        $sql = "UPDATE {$this->table} course_nom = :course_nom, course_desc = :course_desc) SET WHERE course_id = :course_id";
+        $sql = "UPDATE {$this->table} course_nom = :course_nom, course_desc = :course_desc, course_content = :course_content) SET WHERE course_id = :course_id";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':course_nom', $instanceCourse->course_nom);
             $stmt->bindParam(':course_desc', $instanceCourse->course_desc);
+            $stmt->bindParam(':course_content', $instanceCourse->course_content);
             return $stmt->execute();
         } catch (Exception $e) {
             echo "Error updating course: " . $e->getMessage();
@@ -87,7 +94,7 @@ class CourseDAO implements CRUDInterface, CourseInterface
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':fk_user_id', $teacher_id);
             if($stmt->execute()) {
-                return $stmt->fetchAll(PDO::FETCH_CLASS, Course::class);
+                return $stmt->fetchAll(PDO::FETCH_OBJ);
             }
             return [];
         } catch (Exception $e) {

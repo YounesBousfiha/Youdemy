@@ -8,7 +8,6 @@ use Exception;
 
 class AuthDAO implements AuthInterface
 {
-    // TODO: Login  should be manage using $_SESSION
     private $db;
     private $session;
     private $table = "Persons";

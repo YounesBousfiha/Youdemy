@@ -32,13 +32,17 @@ CREATE TABLE IF NOT EXISTS  Courses(
     course_desc VARCHAR(255) NOT NULL,
     course_miniature VARCHAR(255) NOT NULL,
     course_visibility ENUM('active', 'inactive') DEFAULT 'inactive',
-    course_status ENUM('approved', 'rejected') DEFAULT 'pending',
+    course_status ENUM('approved', 'rejected', 'pending') DEFAULT 'pending',
     fk_user_id INT NOT NULL,
     fk_categorie_id INT NOT NULL,
     PRIMARY KEY (course_id),
-    FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id),
+    FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id) ON DELETE CASCADE,
     FOREIGN KEY (fk_categorie_id) REFERENCES Categories(categorie_id)
 );
+
+ALTER TABLE Courses
+ADD COLUMN course_type ENUM('text', 'video') NOT NULL,
+ADD COLUMN course_content TEXT NULL
 
 CREATE TABLE IF NOT EXISTS Tags(
     tag_id INT NOT NULL AUTO_INCREMENT,
@@ -58,8 +62,8 @@ CREATE TABLE IF NOT EXISTS Enrollments(
     fk_user_id INT NOT NULL,
     fk_course_id INT NOT NULL,
     PRIMARY KEY (enrollment_id),
-    FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id),
-    FOREIGN KEY (fk_course_id) REFERENCES Courses(course_id)
+    FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (fk_course_id) REFERENCES Courses(course_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Comments(
@@ -68,8 +72,8 @@ CREATE TABLE IF NOT EXISTS Comments(
     fk_user_id INT NOT NULL,
     fk_course_id INT NOT NULL,
     PRIMARY KEY (comment_id),
-    FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id),
-    FOREIGN KEY (fk_course_id) REFERENCES Courses(course_id)
+    FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (fk_course_id) REFERENCES Courses(course_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Sections(
@@ -79,7 +83,7 @@ CREATE TABLE IF NOT EXISTS Sections(
     isComplete ENUM('TRUE', 'FALSE') DEFAULT 'FALSE',
     fk_course_id INT NOT NULL,
     PRIMARY KEY (section_id),
-    FOREIGN KEY (fk_course_id) REFERENCES Courses(course_id)
+    FOREIGN KEY (fk_course_id) REFERENCES Courses(course_id) ON DELETE CASCADE
 );
 
 ALTER TABLE Courses DROP COLUMN  course_content;
@@ -111,6 +115,18 @@ CREATE VIEW CommentToAdmin AS
     FROM Comments C
     JOIN Persons P ON P.user_id = C.fk_user_id
     JOIN Courses CO ON C.fk_course_id = CO.course_id
+
+ALTER TABLE Courses
+    DROP FOREIGN KEY fk_user_id,
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id) ON DELETE CASCADE;
+
+ALTER TABLE Enrollments
+    DROP FOREIGN KEY fk_user_id,
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id) ON DELETE CASCADE;
+
+ALTER TABLE Comments
+    DROP FOREIGN KEY fk_user_id,
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id) ON DELETE CASCADE;
 
 
 

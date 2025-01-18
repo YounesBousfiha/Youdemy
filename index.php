@@ -1,6 +1,7 @@
 <?php
 
 use Younes\Youdemy\Controllers\CommentController;
+use Younes\Youdemy\Controllers\CourseController;
 use Younes\Youdemy\Controllers\TagController;
 use Younes\Youdemy\Core\Router;
 use Younes\Youdemy\Controllers\AuthController;
@@ -66,25 +67,16 @@ $route->add('POST', '/admin/course/update', [AdminController::class, 'updateCour
 $route->add('POST', '/admin/course/validate', [AdminController::class, 'validateCourse'], 'auth', [1]); // TODO : create validateCourse method in AdminController
 $route->add('POST', '/admin/course/reject', [AdminController::class, 'rejectCourse'], 'auth', [1]); // TODO : create rejectCourse method in AdminController
 
-// Sections management routes
-$route->add('GET', '/admin/sections', [AdminController::class, 'sectionPage'], 'auth', [1]); // TODO : create sectionPage method in AdminController
-$route->add('POST', '/admin/section/delete', [AdminController::class, 'deleteSection'], 'auth', [1]); // TODO : create deleteSection method in AdminController
-$route->add('POST', '/admin/section/update', [AdminController::class, 'updateSection'], 'auth', [1]); // TODO : create updateSection method in AdminController
 // admin statistics routes
 $route->add('GET', '/admin/statistics', [AdminController::class, 'statisticsPage'], 'auth', [1]); // TODO : create statisticsPage method in AdminController
 
 /* TEACHER ROUTES */
 // course management routes
-$route->add('GET', '/teacher/courses', [TeacherController::class, 'coursePage'], 'auth', [1, 2]); // TODO : create coursePage method in TeacherController
-$route->add('POST', '/teacher/course/create', [TeacherController::class, 'createCourse'], 'auth', [1, 2]); // TODO : create createCourse method in TeacherController
-$route->add('POST', '/teacher/course/update', [TeacherController::class, 'updateCourse'], 'auth', [1, 2]); // TODO : create updateCourse method in TeacherController
-$route->add('POST', '/teacher/course/delete', [TeacherController::class, 'deleteCourse'], 'auth', [1, 2]); // TODO : create deleteCourse method in TeacherController
-
-// section management routes
-$route->add('GET', '/teacher/sections', [TeacherController::class, 'sectionPage'], 'auth', [1, 2]); // TODO : create sectionPage method in TeacherController
-$route->add('POST', '/teacher/section/create', [TeacherController::class, 'createSection'], 'auth', [1, 2]); // TODO : create createSection method in TeacherController
-$route->add('POST', '/teacher/section/update', [TeacherController::class, 'updateSection'], 'auth', [1, 2]); // TODO : create updateSection method in TeacherController
-$route->add('POST', '/teacher/section/delete', [TeacherController::class, 'deleteSection'], 'auth', [1, 2]); // TODO : create deleteSection method in TeacherController
+$route->add('GET', '/teacher/courses', [CourseController::class, 'coursePage'], 'auth', [1, 2]);
+$route->add('GET', '/teacher/courses/creation', [CourseController::class, 'createCoursePage'], 'auth', [1, 2]);
+$route->add('POST', '/teacher/course/create', [CourseController::class, 'createCourse'], 'auth', [1, 2]); // TODO : create createCourse method in TeacherController
+$route->add('POST', '/teacher/course/update', [CourseController::class, 'updateCourse'], 'auth', [1, 2]); // TODO : create updateCourse method in TeacherController
+$route->add('POST', '/teacher/course/delete', [CourseController::class, 'deleteCourse'], 'auth', [1, 2]); // TODO : create deleteCourse method in TeacherController
 
 /* STUDENT ROUTES */
 
@@ -101,7 +93,10 @@ $route->add('POST', '/student/comment/delete', [EtudiantController::class, 'dele
 $route->add('POST', '/student/comment/update', [EtudiantController::class, 'updateComment'], 'auth', [1, 3]); // TODO : create updateComment method in EtudiantController
 
 // stats routes
-$route->add('GET', '/student/statistics', [EtudiantController::class, 'statisticsPage'], 'auth', [1, 3]); // TODO : create statisticsPage method in EtudiantController
+$route->add('GET', '/student/statistics', [EtudiantController::class, 'statisticsPageStudent'], 'auth', [1, 3]); // TODO : create statisticsPage method in EtudiantController
+$route->add('GET', '/teacher/statistics', [TeacherController::class, 'statisticsPageTeacher'], 'auth', [1, 2]); // TODO : create statisticsPage method in EtudiantController
+$route->add('GET', '/admin/statistics', [AdminController::class, 'statisticsPageAdmin'], 'auth', [1]); // TODO : create statisticsPage method in EtudiantController
+
 
 
 

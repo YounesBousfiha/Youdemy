@@ -52,7 +52,7 @@
                       <h3  class="font-medium  text-gray-700 " > Mastering Python Programing    </h3>
             </div>
                    
-               <a   href="course-management.html"  class="bg-purple-600 hover:bg-purple-700 px-3 py-2  text-white rounded font-medium" > Manage  </a>
+               <a href="course-management.php" class="bg-purple-600 hover:bg-purple-700 px-3 py-2  text-white rounded font-medium" > Manage  </a>
 
 
            </li>
@@ -63,7 +63,7 @@
 
                     
             </div>
-               <a  href="course-management.html" class="bg-purple-600  hover:bg-purple-700 px-3  py-2 text-white rounded   font-medium"  >  Manage    </a>
+               <a href="course-management.php" class="bg-purple-600  hover:bg-purple-700 px-3  py-2 text-white rounded   font-medium"  >  Manage    </a>
            
                 </li>
             </ul>
