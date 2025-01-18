@@ -11,6 +11,7 @@ use Younes\Youdemy\Entity\Course;
 use Younes\Youdemy\Helpers\Session;
 
 use Exception;
+use Younes\Youdemy\Helpers\Validator;
 
 class CourseController
 {
@@ -27,7 +28,8 @@ class CourseController
     }
 
     public function coursePage() {
-        $courses = $this->courseDAO->index();
+        $id = $_SESSION['user_id'] ?? null;
+        $courses = $this->courseDAO->index($id);
         require_once __DIR__ . '/../View/teacher/course-management.php';
     }
 
@@ -61,6 +63,20 @@ class CourseController
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
     }
+
+    public function deleteCourse() {
+        try {
+            $course_id = Validator::ValidateData($_POST['course_id']);
+            $this->courseDAO->delete($course_id);
+            $this->session->set('Success', 'Course Deleted!');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } catch (Exception $e) {
+            $this->session->set('Error', $e->getMessage());
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+    }
+
+
     public function courseTest() {
         $parsedown = new Parsedown();
         $course = $this->courseDAO->read(3);
