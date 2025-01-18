@@ -2,6 +2,7 @@
 
 namespace Younes\Youdemy\Controllers;
 
+use Parsedown;
 use Younes\Youdemy\Config\DBConnection;
 use Younes\Youdemy\DAO\CategorieDAO;
 use Younes\Youdemy\DAO\CourseDAO;
@@ -52,25 +53,27 @@ class CourseController
                 $_SESSION['user_id'],
                 $_POST['category_id']
             );
-            // TODO : Handle tags many to many relationship
-            var_dump($courseInstance->course_id);
-            var_dump($courseInstance->course_nom);
-            var_dump($courseInstance->course_desc);
-            var_dump($courseInstance->course_miniature);
-            var_dump($courseInstance->course_visibility);
-            var_dump($courseInstance->course_status);
-            var_dump($courseInstance->course_type);
-            var_dump($courseInstance->course_content);
-            var_dump($courseInstance->fk_user_id);
-            var_dump($courseInstance->fk_categorie_id);
-
-            //$this->courseDAO->create($courseInstance);
-            //$this->session->set('Success', 'Course Created!');
+            $this->courseDAO->create($courseInstance);
+            $this->session->set('Success', 'Course Created!');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
         } catch (Exception $e) {
             $this->session->set('Error', $e->getMessage());
-        } finally {
-            //header('Location:' . $_SERVER['HTTP_REFERER']);
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
     }
+    public function courseTest() {
+        $parsedown = new Parsedown();
+        $course = $this->courseDAO->read(3);
+        $data = substr($course->course_content, 6, -1);
+        $data2 = substr($data, 0, -5);
+        $html = $parsedown->text($data2);
+
+        $html = str_replace("<h1>", '<h1 class="text-6xl font-bold my-4">', $html);
+        $html = str_replace("<h2>", '<h2 class="text-3xl font-semibold my-3">', $html);
+        $html = str_replace("<code>", '<code class="bg-gray-200 p-1 rounded">', $html);
+
+        //require_once __DIR__ . '/../View/teacher/course-test.php';
+    }
+
 
 }
