@@ -30,7 +30,7 @@ class Router
     public function dispatch($httpmethod, $path) {
         $uri = $this->formatPath($path);
 
-        if($httpmethod === 'POST') {
+        if ($httpmethod === 'POST') {
             try {
                 $this->csrf->validate($_POST['csrf_token']);
             } catch (Exception $e) {
@@ -39,23 +39,47 @@ class Router
         }
 
         foreach ($this->routes as $route) {
-            if($route['method'] === strtoupper($httpmethod) && $route['path'] === $uri) {
-                if($route['middleware']) {
-                    $middlewareMethpd = $route['middleware'];
-                    $this->middleware->$middlewareMethpd();
+            $routeParts = explode('/', $route['path']);
+            $uriParts = explode('/', $uri);
+
+            if ($route['method'] === strtoupper($httpmethod) && count($routeParts) === count($uriParts)) {
+                $params = [];
+                $isMatch = true;
+
+                foreach ($routeParts as $index => $part) {
+
+                    if (!str_contains($part, '{')) {
+                        if ($part !== $uriParts[$index]) {
+                            $isMatch = false;
+                            break;
+                        }
+                    } else {
+                        $params[] = $uriParts[$index];
+                    }
                 }
 
-                if(!empty($route['rolesRequired']) && !in_array($_SESSION['fk_role_id'], $route['rolesRequired'])) {
-                    http_response_code(403);
-                    die("You are not Authorized ! ");
-                }
+                if ($isMatch) {
+                    // If middleware is set, call it
+                    if ($route['middleware']) {
+                        $middlewareMethpd = $route['middleware'];
+                        $this->middleware->$middlewareMethpd();
+                    }
 
-                $class = $route['handler'][0];
-                $method = $route['handler'][1];
-                $instance = new $class();
-                return call_user_func([$instance, $method]);
+                    // Check for roles if necessary
+                    if (!empty($route['rolesRequired']) && !in_array($_SESSION['fk_role_id'], $route['rolesRequired'])) {
+                        http_response_code(403);
+                        die("You are not Authorized!");
+                    }
+
+                    // Call the handler with parameters
+                    $class = $route['handler'][0];
+                    $method = $route['handler'][1];
+                    $instance = new $class();
+                    return call_user_func_array([$instance, $method], $params);
+                }
             }
         }
+
         http_response_code(404);
         echo "404 Not Found";
     }
