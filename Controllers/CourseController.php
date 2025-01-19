@@ -55,6 +55,9 @@ class CourseController
                 $_SESSION['user_id'],
                 $_POST['category_id']
             );
+            $tags = $_POST['tags'] = $_POST['tags'] ?? [];
+            $courseInstance->tags = $tags;
+
             $this->courseDAO->create($courseInstance);
             $this->session->set('Success', 'Course Created!');
             header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -92,11 +95,11 @@ class CourseController
                 null
             );
             $this->courseDAO->update($courseInstance);
-            //$this->session->set('Success', 'Course Updated!');
-            //header('Location: ' . $_SERVER['HTTP_REFERER']);
+            $this->session->set('Success', 'Course Updated!');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
         } catch (Exception $e) {
-            //$this->session->set('Error', $e->getMessage());
-            //header('Location: ' . $_SERVER['HTTP_REFERER']);
+            $this->session->set('Error', $e->getMessage());
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
     }
 
