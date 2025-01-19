@@ -90,6 +90,8 @@ class HomeController
             $html = str_replace("<h3>", '<h2 class="text-2xl font-semibold my-3">', $html);
             $html = str_replace("<code>", '<code class="bg-gray-200 p-1 rounded">', $html);
 
+            $courseComments = $courseDAO->getCourseComments($course_id);
+
             include_once __DIR__ . '/../View/student/course-content.php';
         } catch (Exception $e) {
             $this->session->set('Error', $e->getMessage());
