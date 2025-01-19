@@ -121,6 +121,21 @@ class CourseDAO implements CRUDInterface, CourseInterface
         }
     }
 
+    public function getCourseByCategory($category_id) {
+        $sql =  "SELECT * FROM {$this->table} WHERE fk_categorie_id = :fk_categorie_id";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':fk_categorie_id', $category_id);
+            if($stmt->execute()) {
+                return $stmt->fetchAll(PDO::FETCH_OBJ);
+            }
+            return [];
+        } catch (Exception $e) {
+            echo "Error while fetching teacher course: " . $e->getMessage();
+            return null;
+        }
+    }
+
     public function publishCourse($course_id) {
         $sql = "UPDATE {$this->table} SET course_visibility = 'active' WHERE course_id = :course_id";
         try {
