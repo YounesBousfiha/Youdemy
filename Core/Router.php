@@ -68,7 +68,7 @@ class Router
                     // Check for roles if necessary
                     if (!empty($route['rolesRequired']) && !in_array($_SESSION['fk_role_id'], $route['rolesRequired'])) {
                         http_response_code(403);
-                        die("You are not Authorized!");
+                        die("You are not Authorized! or Your need to Login");
                     }
 
                     // Call the handler with parameters
