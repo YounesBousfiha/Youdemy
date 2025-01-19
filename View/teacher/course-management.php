@@ -21,8 +21,8 @@
         <label for="visibility" class="block text-gray-700 text-sm font-bold mb-2">Course Miniature:</label>
         <select id="visibility" name="course_visibility" class="border rounded py-2  focus:border-purple-600 text-gray-500 cursor-pointer  appearance-none   w-full   focus:outline-none px-4 pr-8">
           <option selected disabled> Select Course Visibility</option>
-          <option value="1">Public</option>
-          <option value="2">Hide</option>
+          <option value="active">Public</option>
+          <option value="inactive">Hide</option>
         </select>
       </div>
       <div class="flex justify-center space-x-3">
@@ -130,22 +130,21 @@
             document.getElementById('course_image').src = img;
 
             if (course_type === 'video') {
-                console.log('video');
                 if (document.getElementById('video_url')) {
                     return;
                 }
+
+                let videoElement = `<div class="mb-4">
+                    <label for="video_url" class="block text-gray-700 text-sm font-bold mb-2">Video URL:</label>
+                    <input type="text" name="course_content" id="video_url" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="${course_content}">
+                   </div>`;
+                document.getElementById('course_desc').insertAdjacentHTML('afterend', videoElement);
 
                 if (simplemde) {
                     simplemde.toTextArea();
                     simplemde = null;
                     document.getElementById('course_content').remove();
                 }
-
-                let videoElement = `<div class="mb-4">
-                    <label for="video_url" class="block text-gray-700 text-sm font-bold mb-2">Video URL:</label>
-                    <input type="text" name="video_url" id="video_url" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="${course_content}">
-                   </div>`;
-                document.getElementById('course_desc').insertAdjacentHTML('afterend', videoElement);
             } else {
                 if (document.getElementById('video_url')) {
                     document.getElementById('video_url').remove();
