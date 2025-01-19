@@ -3,10 +3,13 @@
 namespace Younes\Youdemy\Controllers;
 
 use Younes\Youdemy\Config\DBConnection;
+use Younes\Youdemy\DAO\CourseDAO;
 use Younes\Youdemy\Helpers\Session;
 use Younes\Youdemy\DAO\CategorieDAO;
 
 use Exception;
+use Younes\Youdemy\Helpers\Validator;
+
 class HomeController
 {
 
@@ -24,15 +27,21 @@ class HomeController
     }
 
     public function cataloguePage() {
+        $limit = 3;
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $offset = ($page - 1) * $limit;
+
         try {
             $categoriesDAO = new CategorieDAO($this->db);
-            $categoriesDATA = $categoriesDAO->index();
+            $totalcategories = count($categoriesDAO->index());
+            $categoriesDATA = $categoriesDAO->indexPagination($limit, $offset);
+
+            $totalPages = ceil($totalcategories/ $limit);
             include_once __DIR__ . '/../View/catalogue.php';
         } catch (Exception $e) {
             $this->session->set('Error', $e->getMessage());
             return null;
         }
-
     }
 
     public function coursesByCategory($id) {
