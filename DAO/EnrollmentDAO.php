@@ -53,4 +53,31 @@ class EnrollmentDAO
             return null;
         }
     }
+
+    public function getEnrollmentsByUser($fk_user_id) {
+        $sql = "SELECT * FROM MyCourses WHERE fk_user_id = :fk_user_id";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':fk_user_id', $fk_user_id);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            echo "Error fetching enrollments : " . $e->getMessage();
+            return null;
+        }
+    }
+
+    public function isEnroll($fk_user_id, $course_id) {
+        $sql = "SELECT * FROM {$this->table} WHERE fk_user_id = :fk_user_id AND fk_course_id = :fk_course_id";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':fk_user_id', $fk_user_id);
+            $stmt->bindParam(':fk_course_id', $course_id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            echo "Error fetching enrollments : " . $e->getMessage();
+            return null;
+        }
+    }
 }
