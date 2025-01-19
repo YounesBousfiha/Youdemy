@@ -108,6 +108,29 @@ class CourseController
         }
     }
 
+    public function updateCourseByAdmin() {
+        try {
+            $courseInstance = new Course(
+                $_POST['course_id'],
+                null,
+                $_POST['course_desc'],
+                null,
+                null,
+                null,
+                null,
+                $_POST['course_content'],
+                null,
+                null
+            );
+            $this->courseDAO->updateByAdmin($courseInstance);
+            //$this->session->set('Success', 'Course Updated!');
+            //header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } catch (Exception $e) {
+            //$this->session->set('Error', $e->getMessage());
+            //header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+    }
+
 
     public function courseTest() {
         $parsedown = new Parsedown();
