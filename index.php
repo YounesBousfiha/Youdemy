@@ -22,6 +22,9 @@ $route = new Router();
 // Public Routes
 $route->add('GET', '/', [HomeController::class, 'index']);
 $route->add('GET', '/catalogue', [HomeController::class, 'cataloguePage']);
+$route->add('GET', '/categorie/{id}', [HomeController::class, 'coursesByCategory']);
+$route->add('GET', '/course/{id}', [HomeController::class, 'courseDetails'], 'auth', [1, 2, 3]);
+$route->add('GET', '/course/content/{id}', [HomeController::class, 'courseContent'], 'auth', [1, 3]);
 
 // Authentification routes
 $route->add('GET', '/login', [AuthController::class, 'index']);
@@ -38,7 +41,7 @@ $route->add('GET', '/admin/dashboard', [AdminController::class, 'index'], 'auth'
 /* ADMIN ROUTES */
 // category CRUD
 $route->add('GET', '/admin/category', [CategorieController::class, 'categoryPage'], 'auth', [1]);
-$route->add('POST', '/admin/category/create', [CategorieController::class, 'createCategory'], 'auth', [1]);
+$route->add('POST', '/admin/category/create', [AdminController::class, 'createCategory'], 'auth', [1]);
 $route->add('POST', '/admin/category/delete', [AdminController::class, 'deleteCategory'], 'auth', [1]);
 $route->add('POST', '/admin/category/update', [AdminController::class, 'updateCategory'], 'auth', [1]);
 // tag CRUD
@@ -78,13 +81,13 @@ $route->add('GET', '/teacher/courses/enrollments/{id}', [EnrollmentController::c
 $route->add('GET', '/teacher/course/test', [CourseController::class, 'courseTest'], 'auth', [1, 2]);
 $route->add('GET', '/teacher/courses/creation', [CourseController::class, 'createCoursePage'], 'auth', [1, 2]);
 $route->add('POST', '/teacher/course/create', [CourseController::class, 'createCourse'], 'auth', [1, 2]);
-$route->add('POST', '/teacher/course/update', [CourseController::class, 'updateCourse'], 'auth', [1, 2]); // TODO : create updateCourse method in TeacherController
+$route->add('POST', '/teacher/course/update', [CourseController::class, 'updateCourse'], 'auth', [1, 2]);
 $route->add('POST', '/teacher/course/delete', [CourseController::class, 'deleteCourse'], 'auth', [1, 2]);
 
 /* STUDENT ROUTES */
 
 $route->add('GET', '/student/mesCours', [EtudiantController::class, 'myCoursesPage'], 'auth', [1, 3]); // TODO : create myCoursesPage method in EtudiantController
-$route->add('GET', '/student/courses', [EtudiantController::class, 'coursesPage'], 'auth', [1, 3]); // TODO ; NB This One should take the cegory ID
+$route->add('GET', '/student/courses', [EtudiantController::class, 'coursesPage'], 'auth', [1, 3]); // TODO ; NB This One should take the Category ID
 
 // Enrollement routes
 $route->add('POST', '/student/enroll', [EtudiantController::class, 'enroll'], 'auth', [1, 3]); // TODO : create enroll method in EtudiantController
@@ -101,6 +104,6 @@ $route->add('GET', '/teacher/statistics', [TeacherController::class, 'statistics
 $route->add('GET', '/admin/statistics', [AdminController::class, 'statisticsPageAdmin'], 'auth', [1]); // TODO : create statisticsPage method in EtudiantController
 
 $method = $_SERVER['REQUEST_METHOD'];
-$uri = $_SERVER['REQUEST_URI'];
+$uri = strtok($_SERVER['REQUEST_URI'], '?');
 
 $route->dispatch($method, $uri);
