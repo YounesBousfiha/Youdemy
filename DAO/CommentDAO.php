@@ -21,7 +21,7 @@ class CommentDAO implements CRUDInterface
         $sql = "INSERT INTO {$this->table} (comment_content, fk_user_id, fk_course_id) VALUES (:comment_content, :fk_user_id, :fk_course_id)";
         try {
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':commtent_content', $instanceComment->comment_content);
+            $stmt->bindParam(':comment_content', $instanceComment->comment_content);
             $stmt->bindParam(':fk_user_id', $instanceComment->fk_user_id);
             $stmt->bindParam(':fk_course_id', $instanceComment->fk_course_id);
             if($stmt->execute()) {
