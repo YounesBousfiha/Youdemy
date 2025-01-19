@@ -76,6 +76,10 @@ class CourseController
         }
     }
 
+    public function updateCourse() {
+        var_dump($_POST);
+    }
+
 
     public function courseTest() {
         $parsedown = new Parsedown();
