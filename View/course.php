@@ -12,7 +12,7 @@
                 </div>
                 <div class="p-6">
                     <h2 class="text-xl font-semibold text-gray-900 mb-3 hover:text-indigo-600 transition-colors duration-200">
-                        <a href="/course/introduction-to-web-development"><?= $course->course_nom ?></a>
+                        <a href="/course/<?= $course->course_id ?>"><?= $course->course_nom ?></a>
                     </h2>
                     <p class="text-gray-700 mb-4 line-clamp-3"><?= $course->course_desc ?></p>
                     <div class="flex items-center mb-4">
