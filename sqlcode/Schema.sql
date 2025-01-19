@@ -160,4 +160,27 @@ FROM Enrollments E
 JOIN Courses C ON E.fk_course_id = C.course_id
 JOIN Users U ON E.fk_user_id = U.user_id;
 
+DELIMITER $$
+
+CREATE PROCEDURE CreateCourse(
+	IN course_nom VARCHAR(255),
+    IN course_desc VARCHAR(255),
+    IN course_miniature VARCHAR(255),
+    IN course_status ENUM('approuved', 'rejected', 'pending'),
+    IN course_type ENUM('text', 'video'),
+    IN course_content TEXT,
+    IN fk_user_id INT,
+    IN fk_categorie_id INT
+)
+
+BEGIN
+	INSERT INTO Courses (course_nom, course_desc, course_miniature, course_status, course_type, course_content, fk_user_id, fk_categorie_id)
+	VALUES (course_nom, course_desc, course_miniature, course_status, course_type, course_content, fk_user_id, fk_categorie_id);
+
+
+    SELECT LAST_INSERT_ID();
+END $$
+
+DELIMITER ;
+
 
