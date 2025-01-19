@@ -135,4 +135,15 @@ class CourseController
         }
     }
 
+    public function reject() {
+        try {
+            $course_id = Validator::ValidateData($_POST['course_id']);
+            $this->courseDAO->rejectCourse($course_id);
+            $this->session->set('Success', 'Course Rejected!');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } catch (Exception $e) {
+            $this->session->set('Error', $e->getMessage());
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+    }
 }
