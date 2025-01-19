@@ -40,7 +40,7 @@
                     <div  class="p-4"  >
                         <h3  class="text-lg font-bold mb-2"> <?= $data->categorie_nom ?></h3>
                          <p  class="text-gray-700 mb-2">Lorem  Ipsum Dummy description of course details for the catalog.</p>
-                           <a href="/categorie?id=<?= htmlspecialchars($data->categorie_id) ?>" class="text-purple-600 font-medium transition hover:text-purple-800 "   >
+                           <a href="/categorie/<?= $data->categorie_id ?>" class="text-purple-600 font-medium transition hover:text-purple-800 "   >
                               Learn more <i class="fas fa-arrow-right text-sm ml-1" ></i> 
                           </a>
                    
@@ -53,15 +53,21 @@
         </div>
        
          <!-- Pagination Placeholder  -->
-    <div class="flex justify-center my-8 ">
-    <button  class="text-gray-500  font-semibold border  hover:bg-gray-200 hover:text-purple-600 py-1 px-2 rounded m-1">  <i class="fas fa-arrow-left" ></i> Prev</button>
-      <button class="text-gray-500  font-semibold border  hover:bg-gray-200  hover:text-purple-600 py-1 px-2 rounded m-1 ">1</button>
-      <button  class="bg-purple-600 font-semibold text-white  border border-gray-600  hover:bg-purple-700  py-1 px-2 rounded m-1">2</button>
-       <button  class="text-gray-500 font-semibold border hover:bg-gray-200 hover:text-purple-600 py-1 px-2 rounded m-1 ">3</button>
-    
-       <button class="text-gray-500  font-semibold  border  hover:bg-gray-200  hover:text-purple-600  py-1 px-2 rounded m-1"><i class="fas fa-arrow-right" ></i>Next </button>
-
-     </div>
-      
-    </div>
+        <div class="flex justify-center my-8">
+            <?php if ($page > 1): ?>
+                <a href="/catalogue?page=<?= $page - 1 ?>" class="text-gray-500 font-semibold border hover:bg-gray-200 hover:text-purple-600 py-1 px-2 rounded m-1">
+                    <i class="fas fa-arrow-left"></i> Prev
+                </a>
+            <?php endif; ?>
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <a href="/catalogue?page=<?= $i ?>" class="text-gray-500 font-semibold border hover:bg-gray-200 hover:text-purple-600 py-1 px-2 rounded m-1 <?= $i == $page ? 'bg-purple-600 text-white' : '' ?>">
+                    <?= $i ?>
+                </a>
+            <?php endfor; ?>
+            <?php if ($page < $totalPages): ?>
+                <a href="/catalogue?page=<?= $page + 1 ?>" class="text-gray-500 font-semibold border hover:bg-gray-200 hover:text-purple-600 py-1 px-2 rounded m-1">
+                    Next <i class="fas fa-arrow-right"></i>
+                </a>
+            <?php endif; ?>
+        </div>
 <?php include_once __DIR__ . '/common/footer.php'; ?>
