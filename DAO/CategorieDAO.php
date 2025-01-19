@@ -36,7 +36,7 @@ class CategorieDAO implements CRUDInterface
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':categorie_id', $categorie_id);
-            return $stmt->fetchObject(Categorie::class);
+            return $stmt->fetchAll(Categorie::class);
         } catch (Exception $e) {
             echo 'Error reading categorie :' .$e->getMessage();
             return null;
@@ -52,6 +52,15 @@ class CategorieDAO implements CRUDInterface
             echo 'Error fetching categories: ' . $e->getMessage();
             return null;
         }
+    }
+
+    public function indexPagination($limit, $offset) {
+        $sql = "SELECT * FROM {$this->table} LIMIT :limit OFFSET :offset";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
     public function update($instanceCategorie) {
         $sql = "UPDATE {$this->table} SET categorie_nom = :categorie_nom, categorie_img = :categorie_img WHERE categorie_id = :categorie_id";
