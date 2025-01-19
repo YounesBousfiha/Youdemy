@@ -78,7 +78,7 @@
     document.getElementById('courseType').addEventListener('change', function (e) {
         let courseType = e.target.value;
         let courseDescription = document.getElementById('courseDescription');
-        if (courseType == 1) {
+        if (courseType === 1) {
             if (document.getElementById('videoUrl')) {
                 return;
             }
