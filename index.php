@@ -80,12 +80,12 @@ $route->add('POST', '/teacher/course/delete', [CourseController::class, 'deleteC
 
 /* STUDENT ROUTES */
 
+// Enrollement routes
+$route->add('POST', '/student/enroll', [EtudiantController::class, 'enrollCourse'], 'auth', [1, 3]); // TODO : create enroll method in EtudiantController
+$route->add('POST', '/student/unenroll', [EtudiantController::class, 'unenrollCourse'], 'auth', [1, 3]); // TODO : create unenroll method in EtudiantController
+
 $route->add('GET', '/student/mesCours', [EtudiantController::class, 'myCoursesPage'], 'auth', [1, 3]); // TODO : create myCoursesPage method in EtudiantController
 $route->add('GET', '/student/courses', [EtudiantController::class, 'coursesPage'], 'auth', [1, 3]); // TODO ; NB This One should take the Category ID
-
-// Enrollement routes
-$route->add('POST', '/student/enroll', [EtudiantController::class, 'enroll'], 'auth', [1, 3]); // TODO : create enroll method in EtudiantController
-$route->add('POST', '/student/unenroll', [EtudiantController::class, 'unenroll'], 'auth', [1, 3]); // TODO : create unenroll method in EtudiantController
 
 // Comment routes
 $route->add('POST', '/student/comment/create', [EtudiantController::class, 'createComment'], 'auth', [1, 3]); // TODO : create createComment method in EtudiantController
