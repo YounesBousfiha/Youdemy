@@ -28,7 +28,7 @@ class EnrollmentDAO
         }
     }
     public function cancelEnrollment($enrollment_id) {
-        $sql = "UPDATE {$this->table} SET enrollmenent_status = 'inactive' WHERE enrollment_id = :enrollment_id";
+        $sql = "DELETE FROM {$this->table} WHERE enrollment_id = :enrollment_id";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':enrollment_id', $enrollment_id);
