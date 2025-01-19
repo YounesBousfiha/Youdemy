@@ -20,7 +20,7 @@ class CourseDAO implements CRUDInterface, CourseInterface
     }
 
     public function create($instanceCourse) {
-        $sql = "INSERT INTO {$this->table} (course_nom, course_desc, course_miniature, course_status, course_type, course_content, fk_user_id, fk_categorie_id) VALUES (:course_nom, :course_desc, :course_miniature, :course_status, :course_type, :course_content, :fk_user_id, :fk_categorie_id)";
+        $sql = "CALL CreateCourse(:course_nom, :course_desc, :course_miniature, :course_status, :course_type, :course_content, :fk_user_id, :fk_categorie_id)";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':course_nom', $instanceCourse->course_nom);
@@ -31,7 +31,15 @@ class CourseDAO implements CRUDInterface, CourseInterface
             $stmt->bindParam(':course_content',$this->db->quote($instanceCourse->course_content));
             $stmt->bindParam(':fk_user_id', $instanceCourse->fk_user_id);
             $stmt->bindParam(':fk_categorie_id', $instanceCourse->fk_categorie_id);
-            return $stmt->execute();
+            $stmt->execute();
+            $course_id = $stmt->fetch();
+            foreach ($instanceCourse->tags as $tag) {
+                $sql = "INSERT INTO Course_tags (fk_course_id, fk_tag_id) VALUES (:fk_course_id, :fk_tag_id)";
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':fk_course_id', $course_id['LAST_INSERT_ID()']);
+                $stmt->bindParam(':fk_tag_id', $tag);
+                $stmt->execute();
+            }
         } catch (Exception $e) {
             echo "Error creating course: " . $e->getMessage();
             return null;
