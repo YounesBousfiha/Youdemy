@@ -114,6 +114,21 @@ class CourseDAO implements CRUDInterface, CourseInterface
             return null;
         }
     }
+
+    public function updateByAdmin($instanceCourse) {
+        $sql = "UPDATE {$this->table} SET course_desc = :course_desc, course_content = :course_content WHERE course_id = :course_id";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':course_desc', $instanceCourse->course_desc);
+            $stmt->bindParam(':course_content', $instanceCourse->course_content);
+            $stmt->bindParam(':course_id', $instanceCourse->course_id);
+            return $stmt->execute();
+        } catch (Exception $e) {
+            echo "Error updating course: " . $e->getMessage();
+            return null;
+        }
+
+    }
     public function delete($course_id) {
         $sql = "DELETE FROM {$this->table} WHERE course_id = :course_id";
         try {
