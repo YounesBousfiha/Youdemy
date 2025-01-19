@@ -38,8 +38,8 @@
                     <label for="courseType" class="text-gray-700 block font-medium mb-2">Course Type</label>
                     <select id="courseType" name="type" class="border rounded py-2 focus:border-purple-600 text-gray-500 cursor-pointer appearance-none w-full focus:outline-none px-4 pr-8">
                         <option selected disabled>Select Type</option>
-                        <option value="1">Video</option>
-                        <option value="2">Text</option>
+                        <option value="1">Text</option>
+                        <option value="2">Video</option>
                     </select>
                 </div>
 
@@ -72,44 +72,44 @@
     </div>
 
 </div>
-<script>
-    let simplemde;
+    <script>
+        let simplemde;
 
-    document.getElementById('courseType').addEventListener('change', function (e) {
-        let courseType = e.target.value;
-        let courseDescription = document.getElementById('courseDescription');
-        if (courseType === 1) {
-            if (document.getElementById('videoUrl')) {
-                return;
-            }
+        document.getElementById('courseType').addEventListener('change', function (e) {
+            let courseType = e.target.value;
+            let courseDescription = document.getElementById('courseDescription');
+            if (courseType === "2") {
+                if (document.getElementById('videoUrl')) {
+                    return;
+                }
 
-            if (simplemde) {
-                simplemde.toTextArea();
-                simplemde = null;
-                document.getElementById('myMarkdown').remove();
-            }
+                if (simplemde) {
+                    simplemde.toTextArea();
+                    simplemde = null;
+                    document.getElementById('myMarkdown').remove();
+                }
 
-            courseDescription.insertAdjacentHTML('afterend', `
+                courseDescription.insertAdjacentHTML('afterend', `
             <div class="mb-4" id="videoUrl">
                 <label for="videoUrl" class="text-gray-700 block font-medium mb-1">Video URL</label>
                 <input type="text" name="course_content" class="border border-gray-400 focus:border-purple-600 focus:outline-none rounded p-2 w-full" />
             </div>
         `);
 
-        } else {
-            if (document.getElementById('myMarkdown')) {
-                return;
-            }
+            } else if (courseType === "1") { // Compare with string "1" for Text
+                if (document.getElementById('myMarkdown')) {
+                    return;
+                }
 
-            if (document.getElementById('videoUrl')) {
-                document.getElementById('videoUrl').remove();
-            }
+                if (document.getElementById('videoUrl')) {
+                    document.getElementById('videoUrl').remove();
+                }
 
-            courseDescription.insertAdjacentHTML('afterend', `
+                courseDescription.insertAdjacentHTML('afterend', `
            <textarea id="myMarkdown" name="course_content"></textarea>
         `);
-            simplemde = new SimpleMDE({ element: document.getElementById("myMarkdown") });
-        }
-    });
-</script>
+                simplemde = new SimpleMDE({ element: document.getElementById("myMarkdown") });
+            }
+        });
+    </script>
 <?php include_once  __DIR__ . '/common/footer.php' ?>
