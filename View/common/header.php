@@ -17,6 +17,13 @@
         <div class="container mx-auto px-6 flex items-center justify-between">
             <a href="/" class="text-2xl font-bold text-gray-800">EduVerse</a>
             <nav>
+                <?php if($_SESSION['fk_role_id'] === 1) : ?>
+                <a href="/admin/dashboard" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">dashboard</a>
+                <?php elseif ($_SESSION['fk_role_id'] === 2) : ?>
+                <a href="/teacher/dashboard" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">dashboard</a>
+                <?php elseif ($_SESSION['fk_role_id'] === 3) : ?>
+                <a href="/student/dashboard" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">dashboard</a>
+                <?php endif; ?>
                 <a href="/catalogue" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Catalogue</a>
                 <a href="#" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">About</a>
                 <a href="#" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Contact</a>
