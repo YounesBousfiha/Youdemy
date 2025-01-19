@@ -13,4 +13,30 @@
 
 </body>
 <script src="/View/assets/js/index.js"></script>
+<script>
+    <?php
+    $message = '';
+    $key = '';
+    if (isset($_SESSION['Error'])) {
+        $message = $_SESSION['Error'];
+        $key = "error";
+        unset($_SESSION['Error']);
+    } elseif (isset($_SESSION['Success'])) {
+        $message = $_SESSION['Success'];
+        $key = "success";
+        unset($_SESSION['Success']);
+    }
+    ?>
+    document.addEventListener('DOMContentLoaded', function() {
+        let message = "<?= $message; ?>";
+        let key = "<?= $key ?>";
+        if (message) {
+            Swal.fire({
+                icon: key,
+                title: 'Message',
+                text: message,
+            });
+        }
+    });
+</script>
 </html>

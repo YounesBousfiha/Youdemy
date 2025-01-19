@@ -88,8 +88,8 @@ $route->add('GET', '/student/courses', [EtudiantController::class, 'coursesPage'
 
 // Comment routes
 $route->add('POST', '/student/comment/create', [CommentController::class, 'createComment'], 'auth', [1, 3]);
-$route->add('POST', '/student/comment/delete', [EtudiantController::class, 'deleteComment'], 'auth', [1, 3]); // TODO : create deleteComment method in EtudiantController
-$route->add('POST', '/student/comment/update', [EtudiantController::class, 'updateComment'], 'auth', [1, 3]); // TODO : create updateComment method in EtudiantController
+$route->add('POST', '/student/comment/delete', [CommentController::class, 'deleteComment'], 'auth', [1, 3]);
+$route->add('POST', '/student/comment/update', [CommentController::class, 'updateComment'], 'auth', [1, 3]);
 
 // stats routes
 $route->add('GET', '/student/statistics', [EtudiantController::class, 'statisticsPageStudent'], 'auth', [1, 3]); // TODO : create statisticsPage method in EtudiantController
