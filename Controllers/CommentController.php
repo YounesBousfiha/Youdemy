@@ -48,6 +48,27 @@ class CommentController
         }
     }
 
+    public function updateComment() {
+        try {
+            $comment_id = Validator::ValidateData($_POST['comment_id']);
+            $comment_content = Validator::ValidateData($_POST['comment_content']);
+
+            $instanceComment = new Comment($comment_id, $comment_content, null, null);
+        } catch (Exception $e) {
+            $this->session->set('Error', 'Missing comment_id or comment_content');
+        }
+
+
+        $commentdao = new CommentDAO($this->db);
+        if($commentdao->update($instanceComment)) {
+            $this->session->set('Success', 'Comment updated!');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } else {
+            $this->session->set('Error', 'Failed to update comment');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+    }
+
     public function deleteComment() {
         try {
             $comment_id = Validator::ValidateData($_POST['comment_id']);
