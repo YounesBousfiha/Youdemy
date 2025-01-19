@@ -80,13 +80,15 @@ class CourseDAO implements CRUDInterface, CourseInterface
     }
 
     public function update($instanceCourse) {
-        $sql = "UPDATE {$this->table} course_nom = :course_nom, course_desc = :course_desc, course_content = :course_content) SET WHERE course_id = :course_id";
+        $sql = "UPDATE {$this->table} SET course_desc = :course_desc, course_visibility = :course_visibility, course_miniature = :course_miniature, course_content = :course_content WHERE course_id = :course_id";
         try {
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':course_nom', $instanceCourse->course_nom);
             $stmt->bindParam(':course_desc', $instanceCourse->course_desc);
-            $stmt->bindParam(':course_content', $instanceCourse->course_content);
-            return $stmt->execute();
+            $stmt->bindParam(':course_miniature', $instanceCourse->course_miniature);
+            $stmt->bindParam(':course_visibility', $instanceCourse->course_visibility);
+            $stmt->bindParam(':course_content', $this->db->quote($instanceCourse->course_content));
+            $stmt->bindParam(':course_id', $instanceCourse->course_id);
+            var_dump($stmt->execute());
         } catch (Exception $e) {
             echo "Error updating course: " . $e->getMessage();
             return null;
