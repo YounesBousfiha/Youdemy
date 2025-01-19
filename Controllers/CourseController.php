@@ -27,6 +27,11 @@ class CourseController
         $this->session = new Session();
     }
 
+    public function getAllCourse() {
+        $courses = $this->courseDAO->getAllCourse();
+        require_once __DIR__ . '/../View/admin/course-management.php';
+    }
+
     public function coursePage() {
         $id = $_SESSION['user_id'] ?? null;
         $courses = $this->courseDAO->index($id);
@@ -118,5 +123,16 @@ class CourseController
         //require_once __DIR__ . '/../View/teacher/course-test.php';
     }
 
+    public function approuve() {
+        try {
+            $course_id = Validator::ValidateData($_POST['course_id']);
+            $this->courseDAO->approuveCourse($course_id);
+            $this->session->set('Success', 'Course Approved!');
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } catch (Exception $e) {
+            $this->session->set('Error', $e->getMessage());
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
+    }
 
 }
