@@ -72,6 +72,18 @@ class CourseDAO implements CRUDInterface, CourseInterface
             return null;
         }
     }
+
+    public function getAllCourse() {
+        $sql = "SELECT * FROM CourseManagerByAdmin";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        } catch (Exception $e) {
+            echo "Error fetching course: " . $e->getMessage();
+            return null;
+        }
+    }
     public function index($id) {
         $sql = "SELECT * FROM TeacherCourseView WHERE user_id = :user_id";
         try {
@@ -130,7 +142,7 @@ class CourseDAO implements CRUDInterface, CourseInterface
     }
 
     public function getCourseByCategory($category_id) {
-        $sql =  "SELECT * FROM {$this->table} WHERE fk_categorie_id = :fk_categorie_id";
+        $sql =  "SELECT * FROM {$this->table} WHERE fk_categorie_id = :fk_categorie_id AND course_status = 'approved' AND course_visibility = 'active'";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':fk_categorie_id', $category_id);
