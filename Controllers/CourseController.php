@@ -131,21 +131,6 @@ class CourseController
         }
     }
 
-
-    public function courseTest() {
-        $parsedown = new Parsedown();
-        $course = $this->courseDAO->read(3);
-        $data = substr($course->course_content, 6, -1);
-        $data2 = substr($data, 0, -5);
-        $html = $parsedown->text($data2);
-
-        $html = str_replace("<h1>", '<h1 class="text-6xl font-bold my-4">', $html);
-        $html = str_replace("<h2>", '<h2 class="text-3xl font-semibold my-3">', $html);
-        $html = str_replace("<code>", '<code class="bg-gray-200 p-1 rounded">', $html);
-
-        //require_once __DIR__ . '/../View/teacher/course-test.php';
-    }
-
     public function approuve() {
         try {
             $course_id = Validator::ValidateData($_POST['course_id']);
