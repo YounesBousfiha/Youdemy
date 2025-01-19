@@ -64,7 +64,7 @@ $route->add('POST', '/admin/comment/delete', [CommentController::class, 'deleteC
 // Course management routes
 $route->add('GET', '/admin/courses', [CourseController::class, 'getAllCourse'], 'auth', [1]);
 $route->add('POST', '/admin/course/delete', [CourseController::class, 'deleteCourse'], 'auth', [1]);
-$route->add('POST', '/admin/course/update', [CourseController::class, 'updateCourse'], 'auth', [1]); // TODO : create updateCourse method in AdminController
+$route->add('POST', '/admin/course/update', [CourseController::class, 'updateCourseByAdmin'], 'auth', [1]);
 $route->add('POST', '/admin/course/approuve', [CourseController::class, 'approuve'], 'auth', [1]);
 $route->add('POST', '/admin/course/reject', [CourseController::class, 'reject'], 'auth', [1]);
 
