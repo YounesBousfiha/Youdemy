@@ -131,15 +131,21 @@ ALTER TABLE Comments
 CREATE VIEW TeacherCourseView AS
 SELECT C.course_id,
 	C.course_nom,
+    C.course_content,
+    C.course_miniature,
+    C.course_desc,
 	Ca.categorie_nom,
+    C.course_type,
+    C.course_visibility,
     U.user_id,
 	(SELECT COUNT(*)
      FROM Enrollments  E
-     WHERE E.fk_course_id = C.course_id) AS Students_Enrolled
+     WHERE E.fk_course_id = C.course_id) AS Students_Enrolled,
+     (SELECT COUNT(*) FROM Enrollments) AS Total_Student
 FROM Courses C
 JOIN Categories Ca ON C.fk_categorie_id = Ca.categorie_id
 JOIN Users U ON U.user_id = C.fk_user_id
-ORDER BY C.course_id ASC
+ORDER BY C.course_id
 
 CREATE VIEW EnrolledStudents AS
 SELECT
