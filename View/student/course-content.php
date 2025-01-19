@@ -1,5 +1,31 @@
 <?php include_once  __DIR__ . '/common/header.php'; ?>
 <?php var_dump($courseComments); ?>
+
+<div id="myModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <!-- Modal content -->
+    <div class="bg-white rounded-lg shadow-lg p-6 w-3/4 md:w-1/2 lg:w-1/3">
+        <span class="close text-gray-500 hover:text-gray-700 cursor-pointer text-2xl font-bold">&times;</span>
+        <form action="/student/comment/update" method="POST" id="comment-form">
+            <div>
+                <input type="hidden" name="comment_id" id="comment_id" value="">
+                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                <div class="mb-4" id="fields">
+                    <label for="nom" class="block text-gray-700 text-sm font-bold mb-2">New Comment:</label>
+                    <input type="text" name="comment_content" id="comment_content" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="">
+                </div>
+                <div class="flex justify-center space-x-3">
+                    <button type="submit" class="bg-yellow-500 text-white hover:bg-yellow-600 transition rounded p-3">
+                        update
+                    </button>
+                    <button type="button" class="cancelModal bg-red-500 text-white hover:bg-red-600 transition rounded p-3">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="container mx-auto p-4">
     <div class="bg-white shadow rounded-lg overflow-hidden">
         <div class="px-6 py-4 flex flex-col items-center">
@@ -39,12 +65,16 @@
                         <p class="text-gray-800"><?= $comment->comment_content ?></p>
                     </div>
                     <div class="flex gap-2">
-                        <button class="text-blue-500 hover:text-blue-700 edit-comment">
+                        <button onclick="setDatatoModal(this)" data-id="<?= $comment->comment_id ?>" data-content="<?= $comment->comment_content ?>" class="openModal text-blue-500 hover:text-blue-700 edit-comment">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="text-red-500 hover:text-red-700 delete-comment">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
+                        <form action="/student/comment/delete" method="POST">
+                            <input type="hidden" name="comment_id" value="<?= $comment->comment_id ?>">
+                            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                            <button class="text-red-500 hover:text-red-700 delete-comment">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
                 <?php endforeach; ?>
@@ -67,6 +97,38 @@
         </div>
     </div>
 </div>
+<script>
+    function setDatatoModal(btn) {
+        const id = btn.getAttribute('data-id');
+        const content = btn.getAttribute('data-content');
+        document.getElementById("comment_id").value = id;
+        document.getElementById("comment_content").value = content;
+    }
+
+    document.querySelectorAll('.openModal').forEach((element) => {
+        element.addEventListener('click', () => {
+            document.getElementById('myModal').classList.remove('hidden');
+        })
+    });
+
+    document.querySelectorAll('.close').forEach((element) => {
+        element.addEventListener('click', () => {
+            document.getElementById('myModal').classList.add('hidden');
+        });
+    });
+
+    document.querySelectorAll('.cancelModal').forEach((element) => {
+        element.addEventListener('click', () => {
+            document.getElementById('myModal').classList.add('hidden');
+        });
+    });
+
+    window.onclick = function(event) {
+        if (event.target === document.getElementById('myModal')) {
+            document.getElementById('myModal').classList.add('hidden');
+        }
+    }
+</script>
 
 
 <?php include_once  __DIR__ . '/common/footer.php'; ?>
