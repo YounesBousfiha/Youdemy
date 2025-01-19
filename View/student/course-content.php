@@ -1,5 +1,4 @@
 <?php include_once  __DIR__ . '/common/header.php'; ?>
-<?php var_dump($courseComments); ?>
 
 <div id="myModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
     <!-- Modal content -->
@@ -64,6 +63,7 @@
                         <p class="font-semibold"><?= $comment->nom . ' ' . $comment->prenom ?></p>
                         <p class="text-gray-800"><?= $comment->comment_content ?></p>
                     </div>
+                    <?php if($comment->fk_user_id === $_SESSION['user_id'])  : ?>
                     <div class="flex gap-2">
                         <button onclick="setDatatoModal(this)" data-id="<?= $comment->comment_id ?>" data-content="<?= $comment->comment_content ?>" class="openModal text-blue-500 hover:text-blue-700 edit-comment">
                             <i class="fas fa-edit"></i>
@@ -76,6 +76,7 @@
                             </button>
                         </form>
                     </div>
+                    <?php endif ?>
                 </div>
                 <?php endforeach; ?>
             </div>

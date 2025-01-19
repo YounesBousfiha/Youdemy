@@ -205,7 +205,7 @@ JOIN Course_tags CT ON CT.fk_course_id = C.course_id
 JOIN Tags T ON CT.fk_tag_id = T.tag_id;
 
 CREATE VIEW CourseComments AS
-SELECT C.comment_id, C.comment_content, U.nom, U.prenom, CO.course_id
+SELECT C.comment_id, C.comment_content, C.fk_user_id, U.nom, U.prenom, CO.course_id
 FROM Comments C
 JOIN Users U ON C.fk_user_id = U.user_id
 JOIN Courses CO ON C.fk_course_id = CO.course_id

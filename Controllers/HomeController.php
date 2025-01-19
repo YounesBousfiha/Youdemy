@@ -74,6 +74,14 @@ class HomeController
     }
 
     public function courseContent($id) {
+        $enrollementdao = new EnrollmentDAO($this->db);
+
+        if(!$enrollementdao->isEnroll($_SESSION['user_id'], $id)) {
+            $this->session->set('Error', 'You are not enrolled in this course');
+            header('Location: http://localhost:3000/course/' . $id);
+            return null;
+        }
+
         try {
             $parsedown = new Parsedown();
             $course_id = Validator::ValidateData($id);
