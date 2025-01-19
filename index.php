@@ -71,9 +71,6 @@ $route->add('POST', '/admin/course/update', [AdminController::class, 'updateCour
 $route->add('POST', '/admin/course/validate', [AdminController::class, 'validateCourse'], 'auth', [1]); // TODO : create validateCourse method in AdminController
 $route->add('POST', '/admin/course/reject', [AdminController::class, 'rejectCourse'], 'auth', [1]); // TODO : create rejectCourse method in AdminController
 
-// admin statistics routes
-$route->add('GET', '/admin/statistics', [AdminController::class, 'statisticsPage'], 'auth', [1]); // TODO : create statisticsPage method in AdminController
-
 /* TEACHER ROUTES */
 // course management routes
 $route->add('GET', '/teacher/courses', [CourseController::class, 'coursePage'], 'auth', [1, 2]);
