@@ -72,7 +72,6 @@ $route->add('POST', '/admin/course/reject', [CourseController::class, 'reject'],
 // course management routes
 $route->add('GET', '/teacher/courses', [CourseController::class, 'coursePage'], 'auth', [1, 2]);
 $route->add('GET', '/teacher/courses/enrollments/{id}', [EnrollmentController::class, 'TeacherCourseManager'], 'auth', [1, 2]);
-$route->add('GET', '/teacher/course/test', [CourseController::class, 'courseTest'], 'auth', [1, 2]);
 $route->add('GET', '/teacher/courses/creation', [CourseController::class, 'createCoursePage'], 'auth', [1, 2]);
 $route->add('POST', '/teacher/course/create', [CourseController::class, 'createCourse'], 'auth', [1, 2]);
 $route->add('POST', '/teacher/course/update', [CourseController::class, 'updateCourse'], 'auth', [1, 2]);
@@ -88,7 +87,7 @@ $route->add('GET', '/student/mesCours', [EtudiantController::class, 'myCoursesPa
 $route->add('GET', '/student/courses', [EtudiantController::class, 'coursesPage'], 'auth', [1, 3]);
 
 // Comment routes
-$route->add('POST', '/student/comment/create', [EtudiantController::class, 'createComment'], 'auth', [1, 3]); // TODO : create createComment method in EtudiantController
+$route->add('POST', '/student/comment/create', [CommentController::class, 'createComment'], 'auth', [1, 3]);
 $route->add('POST', '/student/comment/delete', [EtudiantController::class, 'deleteComment'], 'auth', [1, 3]); // TODO : create deleteComment method in EtudiantController
 $route->add('POST', '/student/comment/update', [EtudiantController::class, 'updateComment'], 'auth', [1, 3]); // TODO : create updateComment method in EtudiantController
 
