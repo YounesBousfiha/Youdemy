@@ -22,7 +22,7 @@
                 Teachers</a>
             <a href="/admin/users"
                class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">User Manage</a>
-            <a href="course-management.html"
+            <a href="/admin/courses"
                class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Courses</a>
             <a href="/admin/category"
                class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Categories</a>
