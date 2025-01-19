@@ -76,8 +76,28 @@ class CourseController
         }
     }
 
-    public function updateCourse() {
-        var_dump($_POST);
+    public function updateCourse()
+    {
+        try {
+            $courseInstance = new Course(
+                $_POST['course_id'],
+                null,
+                $_POST['course_desc'],
+                $_FILES['image'],
+                $_POST['course_visibility'],
+                null,
+                null,
+                $_POST['course_content'],
+                null,
+                null
+            );
+            $this->courseDAO->update($courseInstance);
+            //$this->session->set('Success', 'Course Updated!');
+            //header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } catch (Exception $e) {
+            //$this->session->set('Error', $e->getMessage());
+            //header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
     }
 
 
