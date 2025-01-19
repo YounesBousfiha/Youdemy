@@ -11,9 +11,6 @@ use Younes\Youdemy\Controllers\EtudiantController;
 use Younes\Youdemy\Controllers\AdminController;
 use Younes\Youdemy\Controllers\HomeController;
 use Younes\Youdemy\Controllers\CategorieController;
-use Younes\Youdemy\Core\Middleware;
-
-// TODO: FIX the ON CASCADE DELETE BEETWEEN DATABASE TABLES
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -65,11 +62,11 @@ $route->add('GET', '/admin/comments', [CommentController::class, 'commentPage'],
 $route->add('POST', '/admin/comment/delete', [CommentController::class, 'deleteComment'], 'auth', [1]);
 
 // Course management routes
-$route->add('GET', '/admin/courses', [AdminController::class, 'coursePage'], 'auth', [1]); // TODO : create coursePage method in AdminController
-$route->add('POST', '/admin/course/delete', [AdminController::class, 'deleteCourse'], 'auth', [1]); // TODO : create deleteCourse method in AdminController
-$route->add('POST', '/admin/course/update', [AdminController::class, 'updateCourse'], 'auth', [1]); // TODO : create updateCourse method in AdminController
-$route->add('POST', '/admin/course/validate', [AdminController::class, 'validateCourse'], 'auth', [1]); // TODO : create validateCourse method in AdminController
-$route->add('POST', '/admin/course/reject', [AdminController::class, 'rejectCourse'], 'auth', [1]); // TODO : create rejectCourse method in AdminController
+$route->add('GET', '/admin/courses', [CourseController::class, 'getAllCourse'], 'auth', [1]);
+$route->add('POST', '/admin/course/delete', [CourseController::class, 'deleteCourse'], 'auth', [1]);
+$route->add('POST', '/admin/course/update', [CourseController::class, 'updateCourse'], 'auth', [1]); // TODO : create updateCourse method in AdminController
+$route->add('POST', '/admin/course/approuve', [CourseController::class, 'approuve'], 'auth', [1]);
+$route->add('POST', '/admin/course/reject', [CourseController::class, 'reject'], 'auth', [1]);
 
 /* TEACHER ROUTES */
 // course management routes
