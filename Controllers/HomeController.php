@@ -34,4 +34,28 @@ class HomeController
         }
 
     }
+
+    public function coursesByCategory($id) {
+        try {
+            $categorie_id = Validator::ValidateData($id);
+            $courseDAO = new CourseDAO($this->db);
+            $courseDATA = $courseDAO->getCourseByCategory($categorie_id);
+            include_once __DIR__ . '/../View/course.php';
+        } catch (Exception $e) {
+            $this->session->set('Error', $e->getMessage());
+            return null;
+        }
+    }
+
+    public function courseDetails($id) {
+        try {
+            $course_id = Validator::ValidateData($id);
+            $courseDAO = new CourseDAO($this->db);
+            $courseDATA = $courseDAO->read($course_id);
+            include_once __DIR__ . '/../View/student/course-details.php';
+        } catch (Exception $e) {
+            $this->session->set('Error', $e->getMessage());
+            return null;
+        }
+    }
 }
