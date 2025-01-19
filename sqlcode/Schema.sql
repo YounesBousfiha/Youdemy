@@ -183,6 +183,7 @@ END $$
 
 DELIMITER ;
 
+
 CREATE VIEW CourseManagerByAdmin AS
     SELECT C.* ,CA.categorie_nom ,U.nom, U.prenom
 FROM Courses C
@@ -190,3 +191,15 @@ JOIN Users U ON C.fk_user_id = U.user_id
 JOIN Categories CA ON C.fk_categorie_id = CA.categorie_id
 
 
+CREATE VIEW MyCourses AS
+SELECT E.*, C.course_nom, C.course_miniature, C.course_desc
+FROM Enrollments E
+JOIN Courses C ON E.fk_course_id = C.course_id
+
+CREATE VIEW CourseDetails AS
+SELECT *
+FROM Courses C
+JOIN Users U ON C.fk_user_id = U.user_id
+JOIN Categories ON C.fk_categorie_id = Categories.categorie_id
+JOIN Course_tags CT ON CT.fk_course_id = C.course_id
+JOIN Tags T ON CT.fk_tag_id = T.tag_id;
