@@ -16,7 +16,7 @@
     <div class="container mx-auto px-6 flex items-center justify-between">
         <a href="/" class="text-2xl font-bold text-gray-800">EduVerse</a>
         <nav>
-            <a href="my-courses.html" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">My Courses</a>
+            <a href="/student/mesCours" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">My Courses</a>
             <a href="/catalogue" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Catalogues</a>
             <a href="#" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">About</a>
             <a href="#" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Contact</a>
