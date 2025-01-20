@@ -36,4 +36,18 @@ class StatsController
         }
     }
 
+    public function AdminStats() {
+        $courses = $this->statsdao->CountCourseByAdmin();
+        $students = $this->statsdao->CountStudents();
+        $teachers = $this->statsdao->CountTeachers();
+        $topcourse = $this->statsdao->TopCourse();
+        $coursesPerCategory = $this->statsdao->CousesPerCategorie();
+
+        $this->session->set('totalcourses', $courses);
+        $this->session->set('students', $students);
+        $this->session->set('teachers', $teachers);
+
+        include_once  __DIR__ . '/../View/admin/statistics.php';
+    }
+
 }
