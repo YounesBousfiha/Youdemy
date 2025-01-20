@@ -40,10 +40,41 @@ class StatsDAO
         }
     }
 
-    public function CountCourseByAdmin() {}
+    public function CountCourseByAdmin() {
+        $sql = "SELECT * FROM Courses";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+
+    public function CountStudents() {
+        $sql = "SELECT * FROM Persons WHERE fk_role_id = 3";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+
+    public function  CountTeachers() {
+        $sql = "SELECT * FROM Persons WHERE fk_role_id = 2";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
 
 
-    public function TopCoursPerStudent () {}
+    public function TopCourse () {
+        $sql = "SELECT * FROM BestCourse";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchObject();
+    }
+
+    public function CousesPerCategorie() {
+        $sql = " SELECT * FROM CoursesPerCategory";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 
     public function TopThreeTeachers() {}
 
