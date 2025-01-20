@@ -25,7 +25,9 @@ class StatsController
         try {
             $totalcourses = $this->statsdao->CountCourseByTeacher($teacher_id);
             $studentsPerTeacher = $this->statsdao->TotalStudentPerTeacher($teacher_id);
-            $averageStudentPerCourse = $studentsPerTeacher->StudentsPerTeacher / $totalcourses;
+            if($totalcourses > 0) {
+                $averageStudentPerCourse = $studentsPerTeacher->StudentsPerTeacher / $totalcourses;
+            }
 
             $this->session->set('totalcourses', $totalcourses);
             $this->session->set('studentsPerTeacher', $studentsPerTeacher->StudentsPerTeacher);
@@ -42,6 +44,7 @@ class StatsController
         $teachers = $this->statsdao->CountTeachers();
         $topcourse = $this->statsdao->TopCourse();
         $coursesPerCategory = $this->statsdao->CousesPerCategorie();
+        $topThreeTeacher = $this->statsdao->TopThreeTeachers();
 
         $this->session->set('totalcourses', $courses);
         $this->session->set('students', $students);
