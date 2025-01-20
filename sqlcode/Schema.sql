@@ -220,3 +220,17 @@ SELECT C.fk_user_id, COUNT(*) as StudentsPerTeacher
 FROM Enrollments E
 JOIN Courses C ON C.course_id = E.fk_course_id
 GROUP BY C.fk_user_id
+
+CREATE OR REPLACE  VIEW BestCourse AS
+SELECT E.fk_course_id, C.course_nom, COUNT(*) as EnrolledStudent
+FROM Enrollments E
+JOIN Courses C ON E.fk_course_id = course_id
+GROUP BY E.fk_course_id
+ORDER  BY EnrolledStudent DESC
+LIMIT 1
+
+CREATE OR REPLACE VIEW CoursesPerCategory AS
+SELECT CA.categorie_id, CA.categorie_nom, COUNT(C.course_id) as courseCount
+FROM Courses C
+JOIN Categories CA ON C.fk_categorie_id = CA.categorie_id
+GROUP BY CA.categorie_id
