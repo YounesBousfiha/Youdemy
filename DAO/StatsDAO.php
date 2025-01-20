@@ -78,9 +78,6 @@ class StatsDAO
 
     public function TopThreeTeachers() {}
 
-    public function TotalCourseEnrolled () {}
-
-    public function TotalStudentPerCourse() {}
 
 
 }
