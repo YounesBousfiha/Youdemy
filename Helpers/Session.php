@@ -29,15 +29,4 @@ class Session
         session_destroy();
     }
 
-    public function flash($key, $value = null)
-    {
-        if($value) {
-            $this->set($key, $value);
-        } else {
-            $value = $this->get($key);
-            $this->remove($key);
-            return $value;
-        }
-    }
-
 }

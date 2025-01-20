@@ -13,8 +13,11 @@
             <div  class="bg-white  shadow-lg rounded  p-6 transform hover:scale-105 transition-transform">
                 <i class="fas fa-book  text-4xl mb-3  text-purple-600 "></i>
              <h3 class=" text-xl  font-medium  mb-3  text-center">Courses  </h3>
+                <?php if($_SESSION['totalcourses']) : ?>
                <p  class="text-gray-800 font-medium text-4xl text-center"> <?= $_SESSION['totalcourses'] ?> </p>
-
+                <?php else : ?>
+                    <p  class="text-gray-800 font-medium text-4xl text-center"> Still Calculating </p>
+                <?php endif ?>
         
           
           </div>
@@ -26,11 +29,13 @@
              <i class="fas fa-users text-4xl mb-3 text-purple-600  "></i>
 
         <h3  class="text-xl  font-medium mb-3   text-center">Total Students </h3>
-     
+        <?php if($_SESSION['studentsPerTeacher'])  : ?>
          <p  class="text-gray-800   font-medium text-4xl  text-center"  > <?= $_SESSION['studentsPerTeacher'] ?>  </p>
+        <?php else : ?>
+        <p  class="text-gray-800   font-medium text-4xl  text-center"  > Still Calculating  </p>
+        <?php endif ?>
 
-
-        </div>
+    </div>
 
           <div   class="bg-white shadow-lg rounded p-6  transform hover:scale-105  transition-transform" >
          <i class="fas fa-clock  text-4xl mb-3 text-purple-600 "> </i>
