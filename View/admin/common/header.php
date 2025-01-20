@@ -19,6 +19,8 @@
     <div class="container mx-auto px-6 flex items-center justify-between">
         <a href="/" class="text-2xl font-bold text-gray-800">EduVerse</a>
         <nav>
+            <a href="/admin/dashboard"
+               class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Dashboard</a>
             <a href="/admin/teachers"
                class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Validate
                 Teachers</a>
@@ -32,7 +34,7 @@
                class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Tags</a>
             <a href="/admin/comments"
                class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Comment Manage</a>
-            <a href="statistics.html"
+            <a href="/admin/statistics"
                class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Statistics</a>
             <a href="/catalogue" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">
                 Catalogue</a>

@@ -22,6 +22,8 @@
     <div class="container mx-auto px-6 flex items-center justify-between">
         <a href="/" class="text-2xl font-bold text-gray-800">EduVerse</a>
         <nav>
+            <a href="/teacher/dashboard"
+               class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Dashboard</a>
             <a href="/teacher/courses/creation" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Create Courses</a>
             <a href="/teacher/courses" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Manage Course</a>
             <a href="/teacher/statistics" class="text-gray-600 hover:text-gray-900 px-3 transition duration-300 ease-in-out">Statistics</a>
