@@ -47,7 +47,7 @@ class AuthController
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
         $user = $this->authDAO->login($email, $password);
-        if($user && $user['user_status'] !== 'inactive') {
+        if($user) {
             $this->session->set('Authsucces', 'Vous etes bien connectez');
             if($user['fk_role_id'] === 1) {
                 header('Location:  /admin/dashboard' );

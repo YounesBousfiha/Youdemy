@@ -36,11 +36,12 @@ class AuthDAO implements AuthInterface
     public function login($email, $password) {
         $user = $this->isExist($email);
         if($user && password_verify($password, $user['password'])) {
-            foreach ($user as $key => $value){
-                $this->session->set($key, $value);
+            if($user['user_status'] !== 'inactive') {
+                foreach ($user as $key => $value){
+                    $this->session->set($key, $value);
+                }
+                return $user;
             }
-            $this->session->set('email', $user['email']);
-            return $user;
         } else {
             return null;
         }
