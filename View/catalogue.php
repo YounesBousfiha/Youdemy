@@ -5,28 +5,15 @@
         <div class="mb-6 flex flex-col  sm:flex-row  justify-between items-center gap-3">
           <div class="relative sm:flex-1" >
                <i class="fas fa-search absolute left-2.5  top-2.5  text-gray-500"  ></i>
-                  <input type="text" class="pl-8 border rounded w-full py-2" placeholder="Search Course"/>
+              <form action="/search" method="POST">
+                  <div class="flex">
+                      <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                      <input type="text" name="search" class="pl-8 border rounded w-full py-2" placeholder="Search Course"/>
+                      <button class="mx-2 bg-purple-600 hover:bg-purple-700  rounded text-white py-2 px-4 transition  ">Search </button>
+                  </div>
+              </form>
           </div>
-
-          <div  class="relative sm:flex-1">
-                 <label for="categories" class="sr-only">Category filter</label>
-                <select
-                         class="border rounded w-full py-2  text-gray-500  cursor-pointer appearance-none
-                        focus:outline-none   px-4 pr-8">
-
-                     <option value="" disabled selected>All Categories</option>
-                        <?php foreach ($categoriesDATA as $categorie) : ?>
-                        <option value="<?= $categorie->categorie_id ?>"><?= $categorie->categorie_nom ?></option>
-                        <?php endforeach; ?>
-                </select>
-                <div class=" pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                     <i class="fas fa-chevron-down" ></i>
-                </div>
-           </div>
-         
-                <button class=" bg-purple-600 hover:bg-purple-700  rounded text-white py-2 px-4 transition  ">Sort </button>
-
-           </div>
+        </div>
 
 
         <!-- Afficher mes catalogue avec leur miniature -->

@@ -106,4 +106,12 @@ class HomeController
             return null;
         }
     }
+
+    public function search() {
+        $search = $_POST['search'];
+        $courseDAO = new CourseDAO($this->db);
+        $searchResults= $courseDAO->search($search);
+
+        include_once __DIR__ . '/../View/search.php';
+    }
 }

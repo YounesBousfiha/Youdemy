@@ -2,6 +2,9 @@
 
 namespace Younes\Youdemy\Core;
 
+use Younes\Youdemy\Config\DBConnection;
+use Younes\Youdemy\DAO\EnrollmentDAO;
+
 class Middleware
 {
     public function auth() {

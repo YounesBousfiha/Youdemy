@@ -209,3 +209,8 @@ SELECT C.comment_id, C.comment_content, C.fk_user_id, U.nom, U.prenom, CO.course
 FROM Comments C
 JOIN Users U ON C.fk_user_id = U.user_id
 JOIN Courses CO ON C.fk_course_id = CO.course_id
+
+CREATE VIEW SearchResultsView AS
+SELECT *
+FROM Courses C
+JOIN Users U ON C.fk_user_id = U.user_id

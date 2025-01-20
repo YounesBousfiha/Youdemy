@@ -9,7 +9,7 @@ use Younes\Youdemy\Entity\Course;
 
 
 // TODO: Overide in the Section ( Better) to make the Course have different Docs & Vid
-class CourseDAO implements CRUDInterface, CourseInterface
+class CourseDAO implements CRUDInterface
 {
     private $db;
     private $table = 'Courses';
@@ -200,29 +200,6 @@ class CourseDAO implements CRUDInterface, CourseInterface
         }
     }
 
-    public function publishCourse($course_id) {
-        $sql = "UPDATE {$this->table} SET course_visibility = 'active' WHERE course_id = :course_id";
-        try {
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':course_id', $course_id);
-            return $stmt->execute();
-        } catch (Exception $e) {
-            echo "Error approve course :" . $e->getMessage();
-            return null;
-        }
-    }
-    public function hideCourse($course_id) {
-        $sql = "UPDATE {$this->table} SET course_visibility = 'inactive' WHERE course_id = :course_id";
-        try {
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':course_id', $course_id);
-            return $stmt->execute();
-        } catch (Exception $e) {
-            echo "Error hiding course :" . $e->getMessage();
-            return null;
-        }
-    }
-
     public function approuveCourse($course_id) {
         $sql = "UPDATE {$this->table} SET course_status = 'approved' WHERE course_id = :course_id";
         try {
@@ -242,6 +219,22 @@ class CourseDAO implements CRUDInterface, CourseInterface
             return $stmt->execute();
         } catch (Exception $e) {
             echo "Error approving course: " . $e->getMessage();
+            return null;
+        }
+    }
+
+
+    public function search($search) {
+        $sql = "SELECT * FROM SearchResultsView WHERE course_nom LIKE :search OR course_desc LIKE :search";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(':search', "%$search%");
+            if($stmt->execute()) {
+                return $stmt->fetchAll(PDO::FETCH_OBJ);
+            }
+            return [];
+        } catch (Exception $e) {
+            echo "Error fetching search results: " . $e->getMessage();
             return null;
         }
     }

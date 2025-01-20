@@ -20,6 +20,7 @@ $route = new Router();
 $route->add('GET', '/', [HomeController::class, 'index']);
 $route->add('GET', '/catalogue', [HomeController::class, 'cataloguePage']);
 $route->add('GET', '/categorie/{id}', [HomeController::class, 'coursesByCategory']);
+$route->add('POST', '/search', [HomeController::class, 'search']);
 $route->add('GET', '/course/{id}', [HomeController::class, 'courseDetails'], 'auth', [1, 2, 3]);
 $route->add('GET', '/course/content/{id}', [HomeController::class, 'courseContent'], 'auth', [1, 3]);
 
