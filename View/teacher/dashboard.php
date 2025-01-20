@@ -1,4 +1,5 @@
 <?php include_once __DIR__ . '/common/header.php'?>
+<?php $_SESSION['studentsPerTeacher'] ?>
 <div class="container mx-auto p-6 mt-10">
 
          <h1  class="text-3xl  text-gray-800  font-bold text-center mb-6">Welcome <?= $_SESSION['nom'] . '  ' . $_SESSION['prenom'] ?>, Let's Rock!</h1>
@@ -12,7 +13,7 @@
             <div  class="bg-white  shadow-lg rounded  p-6 transform hover:scale-105 transition-transform">
                 <i class="fas fa-book  text-4xl mb-3  text-purple-600 "></i>
              <h3 class=" text-xl  font-medium  mb-3  text-center">Courses  </h3>
-               <p  class="text-gray-800 font-medium text-4xl text-center"> 9 </p>
+               <p  class="text-gray-800 font-medium text-4xl text-center"> <?= $_SESSION['totalcourses'] ?> </p>
 
         
           
@@ -26,7 +27,7 @@
 
         <h3  class="text-xl  font-medium mb-3   text-center">Total Students </h3>
      
-         <p  class="text-gray-800   font-medium text-4xl  text-center"  >301  </p>
+         <p  class="text-gray-800   font-medium text-4xl  text-center"  > <?= $_SESSION['studentsPerTeacher'] ?>  </p>
 
 
         </div>

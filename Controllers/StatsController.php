@@ -26,6 +26,9 @@ class StatsController
             $totalcourses = $this->statsdao->CountCourseByTeacher($teacher_id);
             $studentsPerTeacher = $this->statsdao->TotalStudentPerTeacher($teacher_id);
             $averageStudentPerCourse = $studentsPerTeacher->StudentsPerTeacher / $totalcourses;
+
+            $this->session->set('totalcourses', $totalcourses);
+            $this->session->set('studentsPerTeacher', $studentsPerTeacher->StudentsPerTeacher);
             include_once __DIR__ . '/../View/teacher/statistics.php';
         } catch (Exception $e) {
             $this->session->set('Error', $e->getMessage());
