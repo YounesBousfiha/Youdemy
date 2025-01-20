@@ -1,4 +1,5 @@
 <?php include_once __DIR__ . '/common/header.php' ?>
+
 <div class="container mx-auto p-6 mt-10">
     <h1 class="text-center text-3xl text-gray-800 mb-8 font-bold">Administrator Dashboard</h1>
 
@@ -7,23 +8,35 @@
            <div class="bg-white rounded p-5 shadow-md transform hover:scale-105 transition-transform">
                 <div class="flex items-center mb-3 justify-center ">  <i class="fas fa-book text-4xl  text-purple-600"></i></div>
              <h3 class="text-xl text-gray-700 font-medium text-center mb-2 ">Total Courses</h3>
-           <p class="text-center  text-gray-800 font-bold text-4xl  ">178</p>
+               <?php if ($_SESSION['totalcourses']) : ?>
+                    <p class="text-center  text-gray-800 font-bold text-4xl  "><?= $_SESSION['totalcourses'] ?></p>
+                <?php else : ?>
+                   <p class="text-center  text-gray-800 font-bold text-4xl  "> Still Calculating </p>
+               <?php endif ?>
          </div>
 
          <!-- Card 2-->
       <div class="bg-white rounded p-5 shadow-md transform hover:scale-105 transition-transform">
           <div class="flex items-center  mb-3 justify-center">   <i class="fas fa-user-graduate text-4xl text-purple-600 "></i> </div>
           <h3 class="text-xl text-gray-700 text-center  font-medium mb-2 ">Total Students</h3>
-                <p class="text-center text-gray-800  font-bold text-4xl">433</p>
+          <?php if($_SESSION['students']) : ?>
+              <p class="text-center  text-gray-800 font-bold text-4xl  "><?= $_SESSION['students'] ?></p>
+          <?php else : ?>
+              <p class="text-center  text-gray-800 font-bold text-4xl  "> Still Calculating </p>
+          <?php endif ?>
     </div>
       
          <!-- Card 3-->
           <div class="bg-white rounded p-5 shadow-md  transform hover:scale-105 transition-transform">
            <div  class="flex items-center mb-3 justify-center">     <i class="fas fa-user-tie text-4xl text-purple-600"> </i> </div>
                 <h3  class="text-xl text-gray-700   font-medium  text-center mb-2 ">Total Teachers</h3>
-                     <p class="text-center text-gray-800 font-bold text-4xl ">33</p>
-       </div>
-   </div>
+              <?php if($_SESSION['teachers']) : ?>
+                  <p class="text-center  text-gray-800 font-bold text-4xl  "><?= $_SESSION['teachers'] ?></p>
+              <?php else : ?>
+                  <p class="text-center  text-gray-800 font-bold text-4xl  "> Still Calculating </p>
+              <?php endif ?>
+          </div>
+      </div>
 
 
         <!--  Admin Dashb Summary Data   -->
