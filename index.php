@@ -98,7 +98,7 @@ $route->add('GET', '/student/statistics', [EtudiantController::class, 'statistic
 
 
 $route->add('GET', '/teacher/statistics', [StatsController::class, 'TeacherStats'], 'auth', [1, 2]);
-$route->add('GET', '/admin/statistics', [AdminController::class, 'statisticsPageAdmin'], 'auth', [1]); // TODO : create statisticsPage method in EtudiantController
+$route->add('GET', '/admin/statistics', [StatsController::class, 'AdminStats'], 'auth', [1]); // TODO : create statisticsPage method in EtudiantController
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = strtok($_SERVER['REQUEST_URI'], '?');
