@@ -9,7 +9,7 @@ use Younes\Youdemy\Entity\Course;
 
 
 // TODO: Overide in the Section ( Better) to make the Course have different Docs & Vid
-class CourseDAO implements CRUDInterface
+class CourseDAO extends BaseDAO implements CRUDInterface
 {
     private $db;
     private $table = 'Courses';
