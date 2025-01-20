@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS  Roles (
     PRIMARY KEY (role_id)
 );
 
+INSERT INTO Roles (role_name) VALUES ('Admin'), ('Teacher'), ('Student');
+
 CREATE TABLE  IF NOT EXISTS Persons (
     user_id INT NOT NULL AUTO_INCREMENT,
     nom VARCHAR(50) NOT NULL,
@@ -33,16 +35,13 @@ CREATE TABLE IF NOT EXISTS  Courses(
     course_miniature VARCHAR(255) NOT NULL,
     course_visibility ENUM('active', 'inactive') DEFAULT 'inactive',
     course_status ENUM('approved', 'rejected', 'pending') DEFAULT 'pending',
+    course_content TEXT NULL,
     fk_user_id INT NOT NULL,
     fk_categorie_id INT NOT NULL,
     PRIMARY KEY (course_id),
     FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id) ON DELETE CASCADE,
     FOREIGN KEY (fk_categorie_id) REFERENCES Categories(categorie_id)
 );
-
-ALTER TABLE Courses
-ADD COLUMN course_type ENUM('text', 'video') NOT NULL,
-ADD COLUMN course_content TEXT NULL
 
 CREATE TABLE IF NOT EXISTS Tags(
     tag_id INT NOT NULL AUTO_INCREMENT,
@@ -53,7 +52,9 @@ CREATE TABLE IF NOT EXISTS Tags(
 CREATE TABLE IF NOT EXISTS Course_tags(
     fk_course_id INT NOT NULL,
     fk_tag_id INT NOT NULL,
-    PRIMARY KEY (fk_course_id, fk_tag_id)
+    PRIMARY KEY (fk_course_id, fk_tag_id),
+    FOREIGN KEY (fk_tag_id) REFERENCES  Tags(tag_id),
+    FOREIGN KEY (fk_course_id) REFERENCES  Courses(course_id)
 );
 
 CREATE TABLE IF NOT EXISTS Enrollments(
@@ -76,27 +77,8 @@ CREATE TABLE IF NOT EXISTS Comments(
     FOREIGN KEY (fk_course_id) REFERENCES Courses(course_id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS Sections(
-    section_id INT NOT NULL AUTO_INCREMENT,
-    section_title VARCHAR(255) NOT NULL,
-    section_content TEXT NOT NULL,
-    isComplete ENUM('TRUE', 'FALSE') DEFAULT 'FALSE',
-    fk_course_id INT NOT NULL,
-    PRIMARY KEY (section_id),
-    FOREIGN KEY (fk_course_id) REFERENCES Courses(course_id) ON DELETE CASCADE
-);
-
-ALTER TABLE Courses DROP COLUMN  course_content;
-
-ALTER TABLE Courses
-DROP COLUMN course_status,
-ADD COLUMN course_visibility ENUM('active', 'inactive') DEFAULT 'inactive',
-ADD COLUMN course_status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending';
-
 ALTER TABLE Persons
 ADD COLUMN user_status ENUM('active', 'inactive') DEFAULT 'active';
-
-INSERT INTO Categories (categorie_nom) VALUES ('Web developpment'), ('Data Science'), ('Blockchain developpment');
 
 ALTER TABLE Categories
 ADD COLUMN categorie_img VARCHAR(255) NOT NULL;
@@ -115,18 +97,6 @@ CREATE VIEW CommentToAdmin AS
     FROM Comments C
     JOIN Persons P ON P.user_id = C.fk_user_id
     JOIN Courses CO ON C.fk_course_id = CO.course_id
-
-ALTER TABLE Courses
-    DROP FOREIGN KEY fk_user_id,
-    ADD CONSTRAINT fk_user_id FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id) ON DELETE CASCADE;
-
-ALTER TABLE Enrollments
-    DROP FOREIGN KEY fk_user_id,
-    ADD CONSTRAINT fk_user_id FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id) ON DELETE CASCADE;
-
-ALTER TABLE Comments
-    DROP FOREIGN KEY fk_user_id,
-    ADD CONSTRAINT fk_user_id FOREIGN KEY (fk_user_id) REFERENCES Persons(user_id) ON DELETE CASCADE;
 
 CREATE VIEW TeacherCourseView AS
 SELECT C.course_id,
@@ -234,3 +204,12 @@ SELECT CA.categorie_id, CA.categorie_nom, COUNT(C.course_id) as courseCount
 FROM Courses C
 JOIN Categories CA ON C.fk_categorie_id = CA.categorie_id
 GROUP BY CA.categorie_id
+
+CREATE OR REPLACE VIEW TopThreeTeacher AS
+SELECT C.fk_user_id, U.nom, U.prenom, U.email, COUNT(*) as StudentsPerTeacher
+FROM Enrollments E
+JOIN Courses C ON C.course_id = E.fk_course_id
+JOIN Users U ON U.user_id = C.fk_user_id
+GROUP BY C.fk_user_id
+ORDER BY StudentsPerTeacher DESC
+LIMIT 3
