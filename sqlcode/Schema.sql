@@ -214,3 +214,9 @@ CREATE VIEW SearchResultsView AS
 SELECT *
 FROM Courses C
 JOIN Users U ON C.fk_user_id = U.user_id
+
+CREATE OR REPLACE VIEW TotalStudentPerTeacher AS
+SELECT C.fk_user_id, COUNT(*) as StudentsPerTeacher
+FROM Enrollments E
+JOIN Courses C ON C.course_id = E.fk_course_id
+GROUP BY C.fk_user_id

@@ -1,5 +1,4 @@
 <?php include_once __DIR__ . '/common/header.php'?>
-
     <div class="container mx-auto p-6 mt-10">
     <h1  class="text-3xl font-bold text-center  mb-10 text-gray-800" >Statistics</h1>
 
@@ -11,7 +10,7 @@
          
                <h3  class="text-2xl font-medium text-center">  Total Courses Created</h3>
            
-              <p  class=" text-gray-800  text-4xl text-center   font-medium" >11</p>
+              <p  class=" text-gray-800  text-4xl text-center   font-medium" ><?= $totalcourses ?></p>
 
         </div>
       
@@ -21,7 +20,7 @@
                    
                    <h3   class=" text-2xl text-center  font-medium  " >Total Students Enrolled  </h3>
 
-               <p   class="text-gray-800 text-4xl   font-medium  text-center ">280  </p>
+               <p   class="text-gray-800 text-4xl   font-medium  text-center "><?= $studentsPerTeacher->StudentsPerTeacher ?> </p>
             
          
            </div>
@@ -31,7 +30,7 @@
           <i  class="fas fa-graduation-cap  text-4xl  text-purple-600 mb-4 " ></i>
 
                <h3  class=" text-2xl  font-medium text-center"  >  Avg. Student Per course</h3>
-         <p class="text-gray-800 font-medium  text-4xl   text-center ">25 </p>
+         <p class="text-gray-800 font-medium  text-4xl   text-center "><?= $averageStudentPerCourse ?> </p>
         </div>
 
   </div>

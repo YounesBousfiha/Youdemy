@@ -3,6 +3,7 @@
 use Younes\Youdemy\Controllers\CommentController;
 use Younes\Youdemy\Controllers\CourseController;
 use Younes\Youdemy\Controllers\EnrollmentController;
+use Younes\Youdemy\Controllers\StatsController;
 use Younes\Youdemy\Controllers\TagController;
 use Younes\Youdemy\Core\Router;
 use Younes\Youdemy\Controllers\AuthController;
@@ -93,8 +94,10 @@ $route->add('POST', '/student/comment/delete', [CommentController::class, 'delet
 $route->add('POST', '/student/comment/update', [CommentController::class, 'updateComment'], 'auth', [1, 3]);
 
 // stats routes
-$route->add('GET', '/student/statistics', [EtudiantController::class, 'statisticsPageStudent'], 'auth', [1, 3]); // TODO : create statisticsPage method in EtudiantController
-$route->add('GET', '/teacher/statistics', [TeacherController::class, 'statisticsPageTeacher'], 'auth', [1, 2]); // TODO : create statisticsPage method in EtudiantController
+$route->add('GET', '/student/statistics', [EtudiantController::class, 'statisticsPageStudent'], 'auth', [1, 3]); // TODO : create statisticsPage method in
+
+
+$route->add('GET', '/teacher/statistics', [StatsController::class, 'TeacherStats'], 'auth', [1, 2]);
 $route->add('GET', '/admin/statistics', [AdminController::class, 'statisticsPageAdmin'], 'auth', [1]); // TODO : create statisticsPage method in EtudiantController
 
 $method = $_SERVER['REQUEST_METHOD'];
