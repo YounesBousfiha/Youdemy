@@ -84,12 +84,11 @@ class HomeController
 
         try {
             $parsedown = new Parsedown();
+            $parsedown->setSafeMode(false);
             $course_id = Validator::ValidateData($id);
             $courseDAO = new CourseDAO($this->db);
             $courseDATA = $courseDAO->CourseDetails($course_id);
-
-            $data = substr($courseDATA[0]->course_content, 1, -1);
-            $data2 = substr($data, 0, -1);
+            $data2 = htmlspecialchars_decode($courseDATA[0]->course_content);
 
             $html = $parsedown->text($data2);
 

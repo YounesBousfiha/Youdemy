@@ -54,7 +54,7 @@
           <th class="px-5 py-3 border-b-2 text-left text-sm   font-medium   text-gray-600 "> Title </th>
           <th class="px-5 py-3 border-b-2  text-left text-sm  font-medium text-gray-600 ">Category</th>
           <th class="px-5 py-3  border-b-2  text-left text-sm   font-medium text-gray-600"> Students Enrolled </th>
-          <th class="px-5 py-3 border-b-2 text-left text-sm  font-medium  text-gray-600">Action</th>
+            <th class="px-5 py-3 border-b-2 text-left text-sm  font-medium  text-gray-600">Action</th>
 
         </tr>
       </thead>

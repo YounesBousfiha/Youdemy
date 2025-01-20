@@ -39,13 +39,13 @@
         <?php if($courseDATA[0]->course_type === 'text') : ?>
         <div class="px-6 py-4 flex flex-col items-center">
             <div class="font-bold text-xl mb-2">Course Content</div>
-            <div class="prose max-w-none">
+            <div class="prose max-w-none text-center">
                 <?= $html ?>
             </div>
         </div>
         <?php else : ?>
         <div class="flex justify-center">
-            <iframe width="853" height="480" src="<?= trim($courseDATA[0]->course_content, "'") ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe width="853" height="480" src="<?= $courseDATA[0]->course_content ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <?php endif; ?>
 

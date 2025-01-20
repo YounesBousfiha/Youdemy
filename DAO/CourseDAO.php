@@ -28,7 +28,7 @@ class CourseDAO extends BaseDAO implements CRUDInterface
             $stmt->bindParam(':course_miniature', $instanceCourse->course_miniature);
             $stmt->bindParam(':course_status', $instanceCourse->course_status);
             $stmt->bindParam(':course_type', $instanceCourse->course_type);
-            $stmt->bindParam(':course_content',$this->db->quote($instanceCourse->course_content));
+            $stmt->bindParam(':course_content',$instanceCourse->course_content);
             $stmt->bindParam(':fk_user_id', $instanceCourse->fk_user_id);
             $stmt->bindParam(':fk_categorie_id', $instanceCourse->fk_categorie_id);
             $stmt->execute();

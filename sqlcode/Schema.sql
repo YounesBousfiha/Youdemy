@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS  Courses(
     course_miniature VARCHAR(255) NOT NULL,
     course_visibility ENUM('active', 'inactive') DEFAULT 'inactive',
     course_status ENUM('approved', 'rejected', 'pending') DEFAULT 'pending',
+    course_type ENUM('text', 'video') NOT NULL,
     course_content TEXT NULL,
     fk_user_id INT NOT NULL,
     fk_categorie_id INT NOT NULL,
@@ -54,7 +55,7 @@ CREATE TABLE IF NOT EXISTS Course_tags(
     fk_tag_id INT NOT NULL,
     PRIMARY KEY (fk_course_id, fk_tag_id),
     FOREIGN KEY (fk_tag_id) REFERENCES  Tags(tag_id),
-    FOREIGN KEY (fk_course_id) REFERENCES  Courses(course_id)
+    FOREIGN KEY (fk_course_id) REFERENCES  Courses(course_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Enrollments(
