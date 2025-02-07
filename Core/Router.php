@@ -59,19 +59,16 @@ class Router
                 }
 
                 if ($isMatch) {
-                    // If middleware is set, call it
                     if ($route['middleware']) {
                         $middlewareMethpd = $route['middleware'];
                         $this->middleware->$middlewareMethpd();
                     }
 
-                    // Check for roles if necessary
                     if (!empty($route['rolesRequired']) && !in_array($_SESSION['fk_role_id'], $route['rolesRequired'])) {
                         http_response_code(403);
                         die("You are not Authorized! or Your need to Login");
                     }
 
-                    // Call the handler with parameters
                     $class = $route['handler'][0];
                     $method = $route['handler'][1];
                     $instance = new $class();
