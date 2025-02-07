@@ -14,18 +14,18 @@ class DBConnection
 
     private function __construct()
     {
-        $this->user = 'root';
-        $this->password = 'MyStr0ng!Passw0rd';
-        $this->dbname = 'Youdemy';
+        $this->user = 'younes';
+        $this->password = 'test123';
+        $this->dbname = 'youdemy';
         $this->host = 'localhost';
 
         try {
-          $this->conn = new PDO("mysql:host={$this->host};dbname={$this->dbname}", "{$this->user}", "{$this->password}");
+          $this->conn = new PDO("pgsql:host={$this->host};dbname={$this->dbname}", "{$this->user}", "{$this->password}");
           $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
         } catch (\Exception $e) {
-            echo 'Error: ' . $e->getMessage();
+            echo 'Error DB: ' . $e->getMessage();
         }
     }
 
