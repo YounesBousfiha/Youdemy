@@ -61,12 +61,12 @@
                         <div class="flex space-x-3  ">
                             <form action="/admin/course/approuve" method="POST">
                                 <input type="hidden" name="course_id" value="<?= $course->course_id ?>">
-                                <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                                 <button type="submit" class="p-1 text-greed-500 hover:text-green-600 rounded transition"> <i class="fas fa-check"></i> </button>
                             </form>
                             <form action="/admin/course/reject" method="POST">
                                 <input type="hidden" name="course_id" value="<?= $course->course_id ?>">
-                                <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                                 <button class="p-1 text-red-600 hover:text-red-700 transition rounded"> <i class="fas fa-times"></i> </button>
                             </form>
                         </div>
@@ -82,7 +82,7 @@
                                     class="openModal p-1 text-yellow-500 hover:text-yellow-600 rounded transition"> <i class="fas fa-edit"></i> </button>
                             <form action="/admin/course/delete" method="POST">
                                 <input type="hidden" name="course_id" value="<?= $course->course_id ?>">
-                                <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                                 <button class="p-1 text-red-600 hover:text-red-700 transition rounded"> <i class="fas fa-times"></i> </button>
                             </form>
                         </div>
