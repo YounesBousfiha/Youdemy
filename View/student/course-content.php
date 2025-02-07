@@ -1,5 +1,4 @@
 <?php include_once  __DIR__ . '/common/header.php'; ?>
-
 <div id="myModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
     <!-- Modal content -->
     <div class="bg-white rounded-lg shadow-lg p-6 w-3/4 md:w-1/2 lg:w-1/3">
@@ -45,7 +44,7 @@
         </div>
         <?php else : ?>
         <div class="flex justify-center">
-            <iframe width="853" height="480" src="<?= $courseDATA[0]->course_content ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe width="853" height="480" src="<?= trim($courseDATA[0]->course_content, "'") ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <?php endif; ?>
 
