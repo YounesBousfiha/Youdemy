@@ -2,14 +2,12 @@
 
 namespace Younes\Youdemy\DAO;
 
-use Younes\Youdemy\DAO\Interfaces\CourseInterface;
 use Younes\Youdemy\DAO\Interfaces\CRUDInterface;
 use PDO, Exception;
 use Younes\Youdemy\Entity\Course;
 
 
-// TODO: Overide in the Section ( Better) to make the Course have different Docs & Vid
-class CourseDAO extends BaseDAO implements CRUDInterface
+class CourseDAO implements CRUDInterface
 {
     private $db;
     private $table = 'Courses';
@@ -20,7 +18,7 @@ class CourseDAO extends BaseDAO implements CRUDInterface
     }
 
     public function create($instanceCourse) {
-        $sql = "CALL CreateCourse(:course_nom, :course_desc, :course_miniature, :course_status, :course_type, :course_content, :fk_user_id, :fk_categorie_id)";
+        $sql = "CALL createcourse(:course_nom, :course_desc, :course_miniature, :course_status, :course_type, :course_content, :fk_user_id, :fk_categorie_id)";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':course_nom', $instanceCourse->course_nom);
@@ -120,7 +118,7 @@ class CourseDAO extends BaseDAO implements CRUDInterface
             $stmt->bindParam(':course_desc', $instanceCourse->course_desc);
             $stmt->bindParam(':course_miniature', $instanceCourse->course_miniature);
             $stmt->bindParam(':course_visibility', $instanceCourse->course_visibility);
-            $stmt->bindParam(':course_content', $this->db->quote($instanceCourse->course_content));
+            $stmt->bindParam(':course_content', $instanceCourse->course_content);
             $stmt->bindParam(':course_id', $instanceCourse->course_id);
             var_dump($stmt->execute());
         } catch (Exception $e) {
