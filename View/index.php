@@ -14,7 +14,7 @@
         
           <div class="lg:w-1/2 transform translate-y-5  opacity-0 transition duration-1000 ease-in-out  hero-img-transition"   >
 
-                <img class="lg:w-3/4 mx-auto" src="https://plus.unsplash.com/premium_photo-1676866681376-e2bb6b23267a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGVsZWFybmluZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="Student Learning" />
+                <img class="lg:w-3/4 mx-auto" src="https://cms-images.udemycdn.com/96883mtakkm8/1qvvR0FDKv9chruIpia6Sc/b2af22a0097e47de4e4354237e3f378c/Onsite_Desktop_GLSTR25.png" alt="Student Learning" />
          </div>
 
         
@@ -132,66 +132,103 @@
   </section>
 
 
-    <!-- Testimonials -->
-  <section class="py-16 bg-white">
-      <div class="container mx-auto px-6 ">
-          <h2 class="text-3xl font-bold text-gray-800 text-center mb-12 section-title">What Our Students Say</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            
-              <!-- Testimonial card -->
-              <div class="bg-white shadow-lg p-6 rounded-lg opacity-0 transition-opacity testimonials-items testimonial-item1">
-                  <div class="mb-4">
-                        <i class="fas fa-quote-left text-gray-400 text-lg mr-2"></i>
-                      <p class="text-gray-700 mb-3 text-center">EduVerse's  courses helped me expand my skillset
-                       significantly.</p>
-                       <i class="fas fa-quote-right text-gray-400 text-lg ml-2"></i>
-                  </div>
-               
-                    <div class="flex justify-center items-center gap-3">
-                      <img src="https://images.unsplash.com/photo-1570295999602-3d62430e330a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Student Image" class="w-10 h-10 rounded-full"/>
-                    
-                    <p class="font-semibold">Alex Jhon,   Developer </p>
-                    </div>
-              </div>
-
-              <!-- Testimonial card -->
-                <div class="bg-white shadow-lg p-6 rounded-lg opacity-0 transition-opacity testimonials-items testimonial-item2">
-                  <div class="mb-4">
-                        <i class="fas fa-quote-left text-gray-400 text-lg mr-2"></i>
-                      <p class="text-gray-700 mb-3 text-center">The interactive coding platform really  allowed  me learn at
-                          my own pace and apply my coding skils</p>
-                        <i class="fas fa-quote-right text-gray-400 text-lg ml-2"></i>
-                
-                    </div>
-                      <div class="flex justify-center items-center gap-3">
-                      <img src="https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Student Image" class="w-10 h-10 rounded-full"/>
-                    
-                    
-                    <p class="font-semibold">Evelin Rose,   Software Engenieer</p>
-                      </div>
-                
-                </div>
-
-                <!-- Testimonial card -->
-                <div class="bg-white shadow-lg p-6 rounded-lg opacity-0 transition-opacity testimonials-items testimonial-item3">
-                  <div class="mb-4">
-                        <i class="fas fa-quote-left text-gray-400 text-lg mr-2"></i>
-                    
-                      <p class="text-gray-700 mb-3 text-center">Great Experience! Great resources and amazing mentors . Thank You  </p>
-                        <i class="fas fa-quote-right text-gray-400 text-lg ml-2"></i>
-                    
-                    </div>
-                      <div class="flex justify-center items-center gap-3">
-                          <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Student Image" class="w-10 h-10 rounded-full"/>
-                    
-                      <p class="font-semibold">Anna lee,   Business Mananger </p>
-                      </div>
-                
-                </div>
-
+    <section class="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+        <!-- Animated background elements -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-5">
+            <div class="absolute top-20 left-1/4 w-48 h-48 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+            <div class="absolute top-32 right-1/4 w-48 h-48 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
         </div>
-    </div>
-</section>
+
+        <div class="container mx-auto px-4 relative">
+            <!-- Animated title -->
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-16 animate-fade-in-up">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
+                What Our Students Say
+            </span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial Card 1 -->
+                <div class="relative group animate-fade-in-up delay-100">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-purple-400 to-indigo-400 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="relative bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-out hover:-translate-y-2">
+                        <div class="mb-6">
+                            <div class="text-purple-600 text-4xl opacity-20">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <p class="text-gray-700 text-lg leading-relaxed mb-4">
+                                EduVerse's courses helped me expand my skillset significantly.
+                            </p>
+                            <div class="text-purple-600 text-4xl opacity-20 text-right">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center space-x-4">
+                            <img src="https://images.unsplash.com/photo-1570295999602-3d62430e330a"
+                                 alt="Alex Jhon"
+                                 class="w-14 h-14 rounded-full ring-4 ring-purple-100 hover:ring-purple-200 transition-all duration-300">
+                            <div>
+                                <p class="font-semibold text-gray-800">Alex Jhon</p>
+                                <p class="text-sm text-purple-600">Developer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial Card 2 -->
+                <div class="relative group animate-fade-in-up delay-200">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-indigo-400 to-blue-400 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="relative bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-out hover:-translate-y-2">
+                        <div class="mb-6">
+                            <div class="text-indigo-600 text-4xl opacity-20">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <p class="text-gray-700 text-lg leading-relaxed mb-4">
+                                The interactive coding platform really allowed me learn at my own pace and apply my coding skills.
+                            </p>
+                            <div class="text-indigo-600 text-4xl opacity-20 text-right">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center space-x-4">
+                            <img src="https://images.unsplash.com/photo-1521119989659-a83eee488004"
+                                 alt="Evelin Rose"
+                                 class="w-14 h-14 rounded-full ring-4 ring-indigo-100 hover:ring-indigo-200 transition-all duration-300">
+                            <div>
+                                <p class="font-semibold text-gray-800">Evelin Rose</p>
+                                <p class="text-sm text-indigo-600">Software Engineer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial Card 3 -->
+                <div class="relative group animate-fade-in-up delay-300">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="relative bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-out hover:-translate-y-2">
+                        <div class="mb-6">
+                            <div class="text-blue-600 text-4xl opacity-20">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <p class="text-gray-700 text-lg leading-relaxed mb-4">
+                                Great Experience! Great resources and amazing mentors. Thank You!
+                            </p>
+                            <div class="text-blue-600 text-4xl opacity-20 text-right">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center space-x-4">
+                            <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d"
+                                 alt="Anna Lee"
+                                 class="w-14 h-14 rounded-full ring-4 ring-blue-100 hover:ring-blue-200 transition-all duration-300">
+                            <div>
+                                <p class="font-semibold text-gray-800">Anna Lee</p>
+                                <p class="text-sm text-blue-600">Business Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 <?php include_once  __DIR__ . '/common/footer.php'; ?>
