@@ -20,7 +20,7 @@
             <?php foreach ($comments as $comment) : ?>
                 <tr>
                     <td class="text-sm px-5 py-4 text-gray-700 bg-white"><?= $comment->comment_id ?></td>
-                    <td class="text-sm px-5 py-4 text-gray-700 bg-white"><?= $comment->course ?></td>
+                    <td class="text-sm px-5 py-4 text-gray-700 bg-white"><?= $comment->course_nom ?></td>
                     <td class="text-sm px-5 py-4 text-gray-700 bg-white"><?= $comment->nom ?></td>
                     <td class="text-sm px-5 py-4 text-gray-700 bg-white"><?= $comment->prenom ?></td>
                     <td class="text-sm px-5 py-4 text-gray-700 bg-white"><?= $comment->comment_content ?></td>

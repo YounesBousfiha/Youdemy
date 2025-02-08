@@ -28,7 +28,7 @@ class StatsDAO
     }
 
     public function TotalStudentPerTeacher($teacher_id) {
-        $sql = "SELECT * FROM TotalStudentPerTeacher WHERE fk_user_id = :fk_user_id";
+        $sql = "SELECT * FROM totalstudentperteacher WHERE fk_user_id = :fk_user_id";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':fk_user_id', $teacher_id);
@@ -63,21 +63,21 @@ class StatsDAO
 
 
     public function TopCourse () {
-        $sql = "SELECT * FROM BestCourse";
+        $sql = "SELECT * FROM bestcourse";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchObject();
     }
 
     public function CousesPerCategorie() {
-        $sql = " SELECT * FROM CoursesPerCategory";
+        $sql = " SELECT * FROM coursespercategory";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function TopThreeTeachers() {
-        $sql = "SELECT * FROM TopThreeTeacher";
+        $sql = "SELECT * FROM topthreeteacher";
             $stmt= $this->db->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_OBJ);

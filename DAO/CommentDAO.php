@@ -48,7 +48,7 @@ class CommentDAO implements CRUDInterface
         }
     }
     public function index() {
-        $sql = "SELECT * FROM CommentToAdmin";
+        $sql = "SELECT * FROM commenttoadmin";
         try {
             $stmt= $this->db->prepare($sql);
             if($stmt->execute()) {

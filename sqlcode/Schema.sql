@@ -1,7 +1,7 @@
 -- SQL Code genere la Schema de Base de Données
 --CREATE DATABASE Youdemy;
 
-\c Youdemy;
+--\c Youdemy;
 
 CREATE TABLE IF NOT EXISTS  Roles (
     role_id SERIAL NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS Categories(
 
 CREATE TYPE visibility AS ENUM ('active', 'inactive');
 CREATE TYPE status AS ENUM ('approved', 'rejected', 'pending');
-CREATE TYPE contenttype AS ENUM('text', 'video');
+CREATE TYPE contentype AS ENUM('text', 'video');
 
 CREATE TABLE IF NOT EXISTS  Courses(
     course_id SERIAL NOT NULL ,
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS  Courses(
     course_miniature VARCHAR(255) NOT NULL,
     course_visibility visibility DEFAULT 'inactive',
     course_status status DEFAULT 'pending',
-    course_type contenttype NOT NULL,
+    course_type contentype NOT NULL,
     course_content TEXT NULL,
     fk_user_id INT NOT NULL,
     fk_categorie_id INT NOT NULL,
@@ -88,7 +88,7 @@ ADD COLUMN user_status visibility DEFAULT 'active';
 ALTER TABLE Categories
 ADD COLUMN categorie_img VARCHAR(255) NOT NULL;
 
-CREATE VIEW inactiveAccount AS
+CREATE VIEW inactiveaccount AS
 SELECT P.user_id ,P.prenom, P.nom, P.email, P.fk_role_id FROM Persons P WHERE user_status = 'inactive';
 
 CREATE VIEW Users AS
@@ -97,13 +97,13 @@ FROM Persons P
 JOIN Roles R ON P.fk_role_id = R.role_id
 WHERE R.role_name NOT LIKE 'Admin';
 
-CREATE VIEW CommentToAdmin AS
+CREATE VIEW commenttoadmin AS
     SELECT C.comment_id, CO.course_nom, C.comment_content, P.nom, P.prenom
     FROM Comments C
     JOIN Persons P ON P.user_id = C.fk_user_id
     JOIN Courses CO ON C.fk_course_id = CO.course_id;
 
-CREATE VIEW TeacherCourseView AS
+CREATE VIEW teachercourseview AS
 SELECT C.course_id,
        C.course_nom,
     C.course_content,
@@ -122,7 +122,7 @@ JOIN Categories Ca ON C.fk_categorie_id = Ca.categorie_id
 JOIN Users U ON U.user_id = C.fk_user_id
 ORDER BY C.course_id;
 
-CREATE VIEW EnrolledStudents AS
+CREATE VIEW enrolledstudents AS
 SELECT
 	C.course_id as course_id,
     U.nom,
@@ -135,23 +135,30 @@ FROM Enrollments E
 JOIN Courses C ON E.fk_course_id = C.course_id
 JOIN Users U ON E.fk_user_id = U.user_id;
 
-CREATE OR REPLACE PROCEDURE CreateCourse(
-    IN emp_course_nom VARCHAR(255),
-    IN emp_course_desc VARCHAR(255),
-    IN emp_course_miniature VARCHAR(255),
-    IN emp_course_status status,
-    IN emp_course_type contenttype,
-    IN emp_course_content TEXT,
-    IN emp_fk_user_id INT,
-    IN emp_fk_categorie_id INT,
-    OUT new_course_id INT
-) AS $$
+CREATE OR REPLACE FUNCTION createcourse(
+    emp_course_nom VARCHAR(255),
+    emp_course_desc VARCHAR(255),
+    emp_course_miniature VARCHAR(255),
+    emp_course_status status,
+    emp_course_type contentype,
+    emp_course_content TEXT,
+    emp_fk_user_id INT,
+    emp_fk_categorie_id INT
+) RETURNS INT AS $$
+DECLARE
+    new_course_id INT;
 BEGIN
-    INSERT INTO Courses (course_nom, course_desc, course_miniature, course_status, course_type, course_content, fk_user_id, fk_categorie_id)
-    VALUES (emp_course_nom, emp_course_desc, emp_course_miniature, emp_course_status, emp_course_type, emp_course_content, emp_fk_user_id, emp_fk_categorie_id)
+    INSERT INTO Courses (
+        course_nom, course_desc, course_miniature, course_status, course_type, course_content, fk_user_id, fk_categorie_id
+    )
+    VALUES (
+               emp_course_nom, emp_course_desc, emp_course_miniature, emp_course_status, emp_course_type, emp_course_content, emp_fk_user_id, emp_fk_categorie_id
+           )
     RETURNING course_id INTO new_course_id;
+    RETURN new_course_id;
 END;
 $$ LANGUAGE plpgsql;
+
 -- DELIMITER $$
 -- CREATE PROCEDURE CreateCourse(
 -- 	IN course_nom VARCHAR(255),
@@ -183,12 +190,12 @@ JOIN Users U ON C.fk_user_id = U.user_id
 JOIN Categories CA ON C.fk_categorie_id = CA.categorie_id;
 
 
-CREATE VIEW MyCourses AS
+CREATE VIEW mycourses AS
 SELECT E.*, C.course_nom, C.course_miniature, C.course_desc
 FROM Enrollments E
 JOIN Courses C ON E.fk_course_id = C.course_id;
 
-CREATE VIEW CourseDetails AS
+CREATE VIEW coursedetails AS
 SELECT *
 FROM Courses C
 JOIN Users U ON C.fk_user_id = U.user_id
@@ -196,31 +203,31 @@ JOIN Categories ON C.fk_categorie_id = Categories.categorie_id
 JOIN Course_tags CT ON CT.fk_course_id = C.course_id
 JOIN Tags T ON CT.fk_tag_id = T.tag_id;
 
-CREATE VIEW CourseComments AS
+CREATE VIEW coursecomments AS
 SELECT C.comment_id, C.comment_content, C.fk_user_id, U.nom, U.prenom, CO.course_id
 FROM Comments C
 JOIN Users U ON C.fk_user_id = U.user_id
 JOIN Courses CO ON C.fk_course_id = CO.course_id;
 
-CREATE VIEW SearchResultsView AS
+CREATE VIEW searchresultsview AS
 SELECT *
 FROM Courses C
 JOIN Users U ON C.fk_user_id = U.user_id;
 
-CREATE OR REPLACE VIEW TotalStudentPerTeacher AS
+CREATE OR REPLACE VIEW totalstudentperteacher AS
 SELECT C.fk_user_id, COUNT(*) as StudentsPerTeacher
 FROM Enrollments E
 JOIN Courses C ON C.course_id = E.fk_course_id
 GROUP BY C.fk_user_id;
 
-CREATE OR REPLACE VIEW CoursesPerCategory AS
+CREATE OR REPLACE VIEW coursespercategory AS
 SELECT CA.categorie_id, CA.categorie_nom, COUNT(C.course_id) as courseCount
 FROM Courses C
 JOIN Categories CA ON C.fk_categorie_id = CA.categorie_id
 GROUP BY CA.categorie_id;
 
 
-CREATE OR REPLACE  VIEW BestCourse AS
+CREATE OR REPLACE  VIEW bestcourse AS
 SELECT E.fk_course_id, C.course_nom, COUNT(*) as EnrolledStudent
 FROM Enrollments E
          JOIN Courses C ON E.fk_course_id = course_id
@@ -228,7 +235,7 @@ GROUP BY E.fk_course_id, C.course_nom
 ORDER  BY EnrolledStudent DESC
 LIMIT 1;
 
-CREATE OR REPLACE VIEW TopThreeTeacher AS
+CREATE OR REPLACE VIEW topthreeteacher AS
 SELECT C.fk_user_id, U.nom, U.prenom, U.email, COUNT(*) as StudentsPerTeacher
 FROM Enrollments E
 JOIN Courses C ON C.course_id = E.fk_course_id

@@ -40,7 +40,7 @@ class EnrollmentDAO
     }
 
     public function studentEnrolledByTeacher($course_id) {
-        $sql = "SELECT * FROM EnrolledStudents WHERE teacher_id = :teacher_id AND course_id = :course_id";
+        $sql = "SELECT * FROM enrolledstudents WHERE teacher_id = :teacher_id AND course_id = :course_id";
         $teacher_id = $_SESSION['user_id'];
         try {
             $stmt = $this->db->prepare($sql);
@@ -55,7 +55,7 @@ class EnrollmentDAO
     }
 
     public function getEnrollmentsByUser($fk_user_id) {
-        $sql = "SELECT * FROM MyCourses WHERE fk_user_id = :fk_user_id";
+        $sql = "SELECT * FROM mycourses WHERE fk_user_id = :fk_user_id";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':fk_user_id', $fk_user_id);

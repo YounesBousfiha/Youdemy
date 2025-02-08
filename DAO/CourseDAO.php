@@ -17,7 +17,13 @@ class CourseDAO implements CRUDInterface
         $this->db = $db;
     }
 
-    public function create($instanceCourse) {
+   /* public function create($instanceCourse) {
+        if($instanceCourse->course_type == 1) {
+            $course_type = "text";
+        } else {
+            $course_type = "video";
+        }
+        var_dump($course_type);
         $sql = "CALL createcourse(:course_nom, :course_desc, :course_miniature, :course_status, :course_type, :course_content, :fk_user_id, :fk_categorie_id)";
         try {
             $stmt = $this->db->prepare($sql);
@@ -25,19 +31,57 @@ class CourseDAO implements CRUDInterface
             $stmt->bindParam(':course_desc', $instanceCourse->course_desc);
             $stmt->bindParam(':course_miniature', $instanceCourse->course_miniature);
             $stmt->bindParam(':course_status', $instanceCourse->course_status);
-            $stmt->bindParam(':course_type', $instanceCourse->course_type);
+            $stmt->bindParam(':course_type', $course_type);
             $stmt->bindParam(':course_content',$instanceCourse->course_content);
             $stmt->bindParam(':fk_user_id', $instanceCourse->fk_user_id);
             $stmt->bindParam(':fk_categorie_id', $instanceCourse->fk_categorie_id);
             $stmt->execute();
             $course_id = $stmt->fetch();
             foreach ($instanceCourse->tags as $tag) {
-                $sql = "INSERT INTO Course_tags (fk_course_id, fk_tag_id) VALUES (:fk_course_id, :fk_tag_id)";
+                $sql = "INSERT INTO course_tags (fk_course_id, fk_tag_id) VALUES (:fk_course_id, :fk_tag_id)";
                 $stmt = $this->db->prepare($sql);
                 $stmt->bindParam(':fk_course_id', $course_id['LAST_INSERT_ID()']);
                 $stmt->bindParam(':fk_tag_id', $tag);
                 $stmt->execute();
             }
+        } catch (Exception $e) {
+            echo "Error creating course: " . $e->getMessage();
+            return null;
+        }
+    }*/
+    public function create($instanceCourse) {
+        if($instanceCourse->course_type == 1) {
+            $course_type = "text";
+        } else {
+            $course_type = "video";
+        }
+        $sql = "SELECT createcourse(:course_nom, :course_desc, :course_miniature, :course_status::status, :course_type::contentype, :course_content, :fk_user_id, :fk_categorie_id)";
+        try {
+            $stmt = $this->db->prepare($sql);
+
+            // Bind your parameters (same as before)
+            $stmt->bindParam(':course_nom', $instanceCourse->course_nom);
+            $stmt->bindParam(':course_desc', $instanceCourse->course_desc);
+            $stmt->bindParam(':course_miniature', $instanceCourse->course_miniature);
+            $stmt->bindParam(':course_status', $instanceCourse->course_status);
+            $stmt->bindParam(':course_type', $course_type);
+            $stmt->bindParam(':course_content', $instanceCourse->course_content);
+            $stmt->bindParam(':fk_user_id', $instanceCourse->fk_user_id, PDO::PARAM_INT);
+            $stmt->bindParam(':fk_categorie_id', $instanceCourse->fk_categorie_id, PDO::PARAM_INT);
+
+            $stmt->execute();
+            $course_id = $stmt->fetchColumn();
+
+            // Insert tags
+            foreach ($instanceCourse->tags as $tag) {
+                $sql = "INSERT INTO course_tags (fk_course_id, fk_tag_id) VALUES (:fk_course_id, :fk_tag_id)";
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':fk_course_id', $course_id, PDO::PARAM_INT);
+                $stmt->bindParam(':fk_tag_id', $tag, PDO::PARAM_INT);
+                $stmt->execute();
+            }
+
+            return $course_id;  // Return the new course ID
         } catch (Exception $e) {
             echo "Error creating course: " . $e->getMessage();
             return null;
@@ -72,7 +116,7 @@ class CourseDAO implements CRUDInterface
     }
 
     public function CourseDetails($id) {
-        $sql = "SELECT * FROM CourseDetails WHERE course_id = :course_id";
+        $sql = "SELECT * FROM coursedetails WHERE course_id = :course_id";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':course_id', $id);
@@ -86,7 +130,7 @@ class CourseDAO implements CRUDInterface
     }
 
     public function getAllCourse() {
-        $sql = "SELECT * FROM CourseManagerByAdmin";
+        $sql = "SELECT * FROM coursemanagerbyadmin";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->execute();
@@ -97,7 +141,7 @@ class CourseDAO implements CRUDInterface
         }
     }
     public function index($id) {
-        $sql = "SELECT * FROM TeacherCourseView WHERE user_id = :user_id";
+        $sql = "SELECT * FROM teachercourseview WHERE user_id = :user_id";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':user_id', $id);
@@ -153,7 +197,7 @@ class CourseDAO implements CRUDInterface
         }
     }
 
-    public function getCourseByTeacher($teacher_id) {
+    public function getcoursebyteacher($teacher_id) {
         $sql =  "SELECT * FROM {$this->table} WHERE fk_user_id = :fk_user_id";
         try {
             $stmt = $this->db->prepare($sql);
@@ -184,7 +228,7 @@ class CourseDAO implements CRUDInterface
     }
 
     public function getCourseComments($course_id) {
-        $sql = "SELECT * FROM  CourseComments WHERE course_id = :course_id";
+        $sql = "SELECT * FROM  coursecomments WHERE course_id = :course_id";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':course_id', $course_id);
@@ -223,7 +267,7 @@ class CourseDAO implements CRUDInterface
 
 
     public function search($search) {
-        $sql = "SELECT * FROM SearchResultsView WHERE course_nom LIKE :search OR course_desc LIKE :search";
+        $sql = "SELECT * FROM searchresultsview WHERE course_nom LIKE :search OR course_desc LIKE :search";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(':search', "%$search%");
